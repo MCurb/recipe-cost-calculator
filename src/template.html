@@ -1,11 +1,33 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Cost Calculator</title>
-</head>
-<body>
-    
-</body>
+  </head>
+  <body>
+    <h2>Insert Ingredients</h2>
+    <label>
+      Name:
+      <input type="text" class="ing-name" />
+    </label>
+    <label>
+      Stock Price
+      <input type="number" class="ing-price" />
+    </label>
+    <label>
+      Quantity
+      <input type="number" class="ing-quantity" />
+    </label>
+    <label>
+      Unit
+      <select type="number" class="ing-unit" >
+        <option value="grams">g</option>
+        <option value="kilograms">kg</option>
+        <option value="liters">lt</option>
+        <option value="milliliters">ml</option>
+      </select>
+    </label>
+    <button class="add-ing-btn">Add Ingredient</button>
+  </body>
 </html>
