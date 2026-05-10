@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Cost Calculator</title>
+    <link rel="shortcut icon" href="./images/budget.png" type="image/x-icon" />
   </head>
   <body>
     <h2>Insert Ingredients</h2>
@@ -21,13 +22,41 @@
     </label>
     <label>
       Unit
-      <select type="number" class="ing-unit" >
-        <option value="grams">g</option>
+      <select class="ing-unit">
+        <option value="grams" selected>g</option>
         <option value="kilograms">kg</option>
         <option value="liters">lt</option>
         <option value="milliliters">ml</option>
       </select>
     </label>
     <button class="add-ing-btn">Add Ingredient</button>
+
+    <h2>Insert Recipe</h2>
+    <label>
+      Name:
+      <input type="text" class="recipe-name" />
+    </label>
+    <h4>Add Ingredient to Recipe</h4>
+    <label>
+      Select ingredient from list:
+      <select class="select-ingredient">
+      </select>
+    </label>
+
+    <label>
+      Quantity
+      <input type="number" class="recipe-ing-quantity" />
+    </label>
+    <label>
+      Unit
+      <select class="ing-unit-used">
+        <option value="grams" selected>g</option>
+        <option value="kilograms">kg</option>
+        <option value="liters">lt</option>
+        <option value="milliliters">ml</option>
+      </select>
+    </label>
+    <button class="add-ing-recipe-btn">Add Ingredient</button>
+    <button class="add-recipe-btn">Add Recipe</button>
   </body>
 </html>

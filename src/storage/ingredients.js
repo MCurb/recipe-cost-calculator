@@ -7,7 +7,6 @@ class Ingredients {
         stockPrice: 24,
         quantity: 1000,
         unit: 'g',
-        pricePerUnit: 0.024,
       },
     ];
   }
