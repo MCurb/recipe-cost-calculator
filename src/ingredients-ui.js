@@ -1,3 +1,4 @@
+import { observer } from './observer';
 import { ingredientsClass } from './storage/ingredients';
 
 // ========================
@@ -20,5 +21,6 @@ addIngBtn.addEventListener('click', () => {
   };
 
   ingredientsClass.addIngredient(newIngredient);
+  observer.notify(ingredientsClass.getIngredientsData());
   console.log(ingredientsClass.getIngredient(newIngredient.id));
 });
