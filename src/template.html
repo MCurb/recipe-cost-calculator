@@ -7,29 +7,48 @@
     <link rel="shortcut icon" href="./images/budget.png" type="image/x-icon" />
   </head>
   <body>
-    <h2>Insert Ingredients</h2>
-    <label>
-      Name:
-      <input type="text" class="ing-name" />
-    </label>
-    <label>
-      Stock Price
-      <input type="number" class="ing-price" />
-    </label>
-    <label>
-      Quantity
-      <input type="number" class="ing-quantity" />
-    </label>
-    <label>
-      Unit
-      <select class="ing-unit">
-        <option value="grams" selected>g</option>
-        <option value="kilograms">kg</option>
-        <option value="liters">lt</option>
-        <option value="milliliters">ml</option>
-      </select>
-    </label>
-    <button class="add-ing-btn">Add Ingredient</button>
+    <section>
+      <h2>Insert Ingredients</h2>
+      <div class="ing-cards-container">
+        <div class="ingredient-card">
+          <div class="ing-name-actions-container">
+            <h3>Name</h3>
+            <div class="buttons">
+              <button class="edit-ing-btn">Edit</button>
+              <button class="del-ing-btn">Delete</button>
+            </div>
+          </div>
+          <div class="ing-info-container">
+            <p>Cost: 24mxn</p>
+            <p>Unit: 1kg</p>
+          </div>
+        </div>
+      </div>
+      <form>
+        <label>
+          Name:
+          <input type="text" class="ing-name" />
+        </label>
+        <label>
+          Stock Price
+          <input type="number" class="ing-price" />
+        </label>
+        <label>
+          Quantity
+          <input type="number" class="ing-quantity" />
+        </label>
+        <label>
+          Unit
+          <select class="ing-unit">
+            <option value="grams" selected>g</option>
+            <option value="kilograms">kg</option>
+            <option value="liters">lt</option>
+            <option value="milliliters">ml</option>
+          </select>
+        </label>
+        <button type="button" class="add-ing-btn">Add Ingredient</button>
+      </form>
+    </section>
 
     <h2>Insert Recipe</h2>
     <label>
@@ -39,8 +58,7 @@
     <h4>Add Ingredient to Recipe</h4>
     <label>
       Select ingredient from list:
-      <select class="select-ingredient">
-      </select>
+      <select class="select-ingredient"></select>
     </label>
 
     <label>

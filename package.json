@@ -25,7 +25,7 @@
     "url": "https://github.com/MCurb/template-repo/issues"
   },
   "homepage": "https://github.com/MCurb/template-repo#readme",
-   "devDependencies": {
+  "devDependencies": {
     "@babel/core": "^7.28.5",
     "@babel/preset-env": "^7.28.5",
     "@eslint/js": "^9.35.0",
@@ -45,5 +45,8 @@
     "webpack-cli": "^6.0.1",
     "webpack-dev-server": "^5.2.2",
     "webpack-merge": "^6.0.1"
+  },
+  "dependencies": {
+    "convert": "^7.0.0"
   }
 }
