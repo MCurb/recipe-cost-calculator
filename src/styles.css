@@ -100,3 +100,7 @@ h6 {
 .buttons {
   gap: 12px;
 }
+
+.ing-info-container {
+  flex-wrap: wrap;
+}

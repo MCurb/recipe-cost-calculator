@@ -68,7 +68,7 @@ function createIngInfo(stockPrice, quantity, unit) {
   quantityUnit.textContent = `Unit: ${quantity} ${quantity > 1 ? unit : unit.slice(0, -1)}`;
 
   const ingInfoCont = createElement('div', 'ing-info-container');
-  ingInfoCont.append(cost, quantityUnit);
+  ingInfoCont.append(quantityUnit, cost);
 
   return ingInfoCont;
 }
