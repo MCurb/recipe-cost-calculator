@@ -24,27 +24,29 @@
           </div>
         </div>
       </div>
-      <form>
+      <form class="ingredient-form">
         <label>
-          Name:
+          Ingredient Name:
           <input type="text" class="ing-name" />
         </label>
+        <div class="package-size">
+          <label>
+            Quantity:
+            <input type="number" placeholder="1" class="ing-quantity" />
+          </label>
+          <label>
+            Unit:
+            <select class="ing-unit">
+              <option value="grams">g</option>
+              <option value="kilograms" selected>kg</option>
+              <option value="liters">lt</option>
+              <option value="milliliters">ml</option>
+            </select>
+          </label>
+        </div>
         <label>
-          Stock Price
+          Price:
           <input type="number" class="ing-price" />
-        </label>
-        <label>
-          Quantity
-          <input type="number" class="ing-quantity" />
-        </label>
-        <label>
-          Unit
-          <select class="ing-unit">
-            <option value="grams" selected>g</option>
-            <option value="kilograms">kg</option>
-            <option value="liters">lt</option>
-            <option value="milliliters">ml</option>
-          </select>
         </label>
         <button type="button" class="add-ing-btn">Add Ingredient</button>
       </form>
