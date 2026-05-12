@@ -25,58 +25,79 @@
         </div>
       </div>
       <form class="ingredient-form">
-        <label>
-          Ingredient Name:
-          <input type="text" class="ing-name" />
-        </label>
-        <div class="package-size">
-          <label>
-            Quantity:
-            <input type="number" placeholder="1" class="ing-quantity" />
-          </label>
-          <label>
-            Unit:
-            <select class="ing-unit">
+        <div class="form-group">
+          <label for="ing-name">Ingredient Name:</label>
+          <input type="text" id="ing-name" class="ing-name" />
+        </div>
+
+        <div class="used-quantity-wrapper">
+          <div class="form-group">
+            <label for="ing-quantity">Quantity:</label>
+            <input
+              type="number"
+              id="ing-quantity"
+              placeholder="1"
+              class="ing-quantity"
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="ing-unit">Unit: </label>
+            <select id="ing-unit" class="ing-unit">
               <option value="grams">g</option>
               <option value="kilograms" selected>kg</option>
               <option value="liters">lt</option>
               <option value="milliliters">ml</option>
             </select>
-          </label>
+          </div>
         </div>
-        <label>
-          Price:
-          <input type="number" class="ing-price" />
-        </label>
+        <div class="form-group">
+          <label for="ing-price"> Price: </label>
+          <input type="number" id="ing-price" class="ing-price" />
+        </div>
         <button type="button" class="add-ing-btn">Add Ingredient</button>
       </form>
     </section>
 
-    <h2>Insert Recipe</h2>
-    <label>
-      Name:
-      <input type="text" class="recipe-name" />
-    </label>
-    <h4>Add Ingredient to Recipe</h4>
-    <label>
-      Select ingredient from list:
-      <select class="select-ingredient"></select>
-    </label>
+    <section>
+      <h2>Insert Recipe</h2>
+      <form class="recipe-form">
+        <div class="form-group">
+          <label for="recipe-name">Recipe Name:</label>
+          <input type="text" id="recipe-name" class="recipe-name" />
+        </div>
 
-    <label>
-      Quantity
-      <input type="number" class="recipe-ing-quantity" />
-    </label>
-    <label>
-      Unit
-      <select class="ing-unit-used">
-        <option value="grams" selected>g</option>
-        <option value="kilograms">kg</option>
-        <option value="liters">lt</option>
-        <option value="milliliters">ml</option>
-      </select>
-    </label>
-    <button class="add-ing-recipe-btn">Add Ingredient</button>
-    <button class="add-recipe-btn">Add Recipe</button>
+        <fieldset class="ing-used-section">
+          <legend>Add ingredient to recipe:</legend>
+          <div class="form-group">
+            <label for="select-ingredient">Select an ingredient:</label>
+            <select id="select-ingredient" class="select-ingredient"></select>
+          </div>
+          <div class="used-quantity-wrapper">
+            <div class="form-group">
+              <label for="recipe-ing-quantity"> Quantity Used:</label>
+              <input
+                type="number"
+                id="recipe-ing-quantity"
+                class="recipe-ing-quantity"
+              />
+            </div>
+
+            <div class="form-group">
+              <label for="ing-unit-used">Unit:</label>
+              <select id="ing-unit-used" class="ing-unit-used">
+                <option value="grams" selected>g</option>
+                <option value="kilograms">kg</option>
+                <option value="liters">lt</option>
+                <option value="milliliters">ml</option>
+              </select>
+            </div>
+          </div>
+          <button class="add-ing-recipe-btn">Add Ingredient</button>
+        </fieldset>
+
+        <button class="add-recipe-btn">Add Recipe</button>
+      </form>
+    </section>
   </body>
 </html>
