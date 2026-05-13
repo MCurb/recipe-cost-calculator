@@ -73,8 +73,20 @@ function createIngInfo(stockPrice, quantity, unit) {
   return ingInfoCont;
 }
 
-function createElement(element, className) {
+export function createElement(element, className) {
   const elem = document.createElement(element);
   if (className) elem.classList.add(className);
   return elem;
 }
+
+// const ingCardBtnContainer = document.querySelector('.ingredient-card .buttons');
+
+// ingCardBtnContainer.addEventListener('click', (e) => {
+//   if (e.target.classList.contains('edit-ing-btn')) {
+//     const ingredientObj = ingredientsClass.getIngredient(
+//       e.target.dataset.ingId,
+//     );
+
+    
+//   }
+// });

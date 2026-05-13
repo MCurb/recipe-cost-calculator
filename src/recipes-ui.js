@@ -2,6 +2,7 @@ import convert from 'convert';
 import { observer } from './observer';
 import { ingredientsClass } from './storage/ingredients';
 import { recipesClass } from './storage/recipes';
+import { createElement } from './ingredients-ui';
 
 // ========================
 // DOM REFERENCES (static)
@@ -58,6 +59,7 @@ addIngToRecipeBtn.addEventListener('click', () => {
   ingUsed.recipeUse.ingPriceUsed = priceUsed;
 
   pendingIng.push(ingUsed);
+  updateIngFormList(ingUsed);
 });
 
 addRecipeBtn.addEventListener('click', () => {
@@ -79,3 +81,55 @@ addRecipeBtn.addEventListener('click', () => {
   recipesClass.addRecipe(newRecipe);
   console.log(recipesClass.getRecipe(newRecipe.id));
 });
+
+function updateIngFormList(ingObj) {
+  const { name } = ingObj.ingInfo;
+  const { quantityUsed, unitUsed, ingPriceUsed } = ingObj.recipeUse;
+
+  const ingMinCard = createIngMinCard(
+    name,
+    quantityUsed,
+    unitUsed,
+    ingPriceUsed,
+  );
+
+  const ulList = document.querySelector('ul.ing-min-cards-container');
+  ulList.classList.add('visible');
+  ulList.append(ingMinCard);
+}
+
+function createIngMinCard(name, quantityUsed, unitUsed, ingPriceUsed) {
+  const ingName = createElement('p');
+  ingName.textContent = name;
+  const ingMinDetailsSec = createIngMinDetails(
+    quantityUsed,
+    unitUsed,
+    ingPriceUsed,
+  );
+
+  const ingMinCard = createElement('li', 'ing-min-card');
+  ingMinCard.append(ingName, ingMinDetailsSec);
+
+  return ingMinCard;
+}
+
+function createIngMinDetails(quantityUsed, unitUsed, ingPriceUsed) {
+  const unitAbb = {
+    grams: 'g',
+    kilograms: 'kg',
+    liters: 'lt',
+    milliliters: 'ml',
+  };
+
+  const quantity = createElement('p');
+  quantity.textContent = `${quantityUsed}${unitAbb[unitUsed]}`;
+
+  const price = createElement('p');
+  price.textContent = `${ingPriceUsed} MXN`;
+
+  const minDetailsWrapper = createElement('div', 'ing-min-details');
+
+  minDetailsWrapper.append(quantity, price);
+
+  return minDetailsWrapper;
+}

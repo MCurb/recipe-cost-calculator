@@ -78,6 +78,8 @@ section {
   display: flex;
   flex-direction: column;
   align-items: center;
+  margin-top: 60px;
+  margin-bottom: 60px;
 }
 
 /* Ingredient Card */
@@ -116,9 +118,33 @@ section {
   flex-wrap: wrap;
 }
 
+/* Ingredient Minimal Card */
+
+ul.ing-min-cards-container {
+  /* display: flex; */
+  flex-direction: column;
+  gap: 8px;
+  padding: 0;
+}
+
+li.ing-min-card {
+  display: flex;
+  justify-content: space-between;
+  border: 1px solid gray;
+  border-radius: 8px;
+  padding: 4px 12px;
+  list-style-type: none;
+}
+
+.ing-min-details {
+  display: flex;
+  gap: 12px;
+}
+
 /* Global Form Styles */
 
-form, fieldset {
+form,
+fieldset {
   display: flex;
   flex-direction: column;
   /* align-items: center; */
@@ -130,7 +156,9 @@ label {
   min-width: max-content;
 }
 
-input, select, form button {
+input,
+select,
+form button {
   width: 100%;
   min-height: 32px;
 }
@@ -151,9 +179,16 @@ input, select, form button {
   flex: 1;
 }
 
-
 /* Recipe Form */
 
 fieldset.ing-used-section {
   width: auto;
+}
+
+.recipe-form .ing-min-cards-container {
+  display: none;
+}
+
+.recipe-form .ing-min-cards-container.visible {
+  display: flex;
 }
