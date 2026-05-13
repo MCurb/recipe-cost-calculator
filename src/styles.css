@@ -86,6 +86,9 @@ section {
   display: flex;
   flex-direction: column;
   align-items: center;
+  gap: 20px;
+  width: 100%;
+  padding: 20px;
 }
 
 .ingredient-card {
@@ -93,7 +96,7 @@ section {
   flex-direction: column;
   gap: 8px;
   width: min(400px, 100%);
-  padding: 20px;
+  padding: 8px 20px;
   border: 2px solid;
   border-radius: 20px;
 }
@@ -144,7 +147,7 @@ input, select, form button {
   flex-wrap: wrap;
 }
 
-.used-quantity-wrapper {
+.used-quantity-wrapper > * {
   flex: 1;
 }
 
