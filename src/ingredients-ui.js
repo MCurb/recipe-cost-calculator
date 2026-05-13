@@ -29,55 +29,74 @@ addIngBtn.addEventListener('click', () => {
   ingCardsCont.appendChild(createIngCardUI(newIngredient));
 });
 
-function createIngCardUI(ingredient) {
-  const { id, name, stockPrice, quantity, unit } = ingredient;
+const ingCardTemplate = document.querySelector('.ingredient-card-template');
 
-  const ingNameActions = createNameActions(id, name);
-  const ingInfo = createIngInfo(stockPrice, quantity, unit);
+function createIngCardUI(ingredientObj) {
+  const { id, name, stockPrice, quantity, unit } = ingredientObj;
 
-  const ingCard = createElement('div', 'ingredient-card');
-  ingCard.append(ingNameActions, ingInfo);
+  const ingCard = ingCardTemplate.content.cloneNode(true);
+
+  ingCard.querySelector('.card-ing-name').textContent = name;
+  ingCard.querySelector('.card-ing-unit').textContent =
+    `Unit: ${quantity} ${quantity > 1 ? unit : unit.slice(0, -1)}`;
+  ingCard.querySelector('.card-ing-price').textContent =
+    `Cost: ${stockPrice} MXN`;
+  ingCard.querySelectorAll('button').forEach((button) => {
+    button.dataset.ingId = id;
+  });
 
   return ingCard;
 }
 
-function createNameActions(id, name) {
-  const recipeName = createElement('h3');
-  recipeName.textContent = name;
+// function createIngCardUI(ingredient) {
+//   const { id, name, stockPrice, quantity, unit } = ingredient;
 
-  const editBtn = createElement('button', 'edit-ing-btn');
-  editBtn.textContent = 'Edit';
-  const deleteBtn = createElement('button', 'del-ing-btn');
-  deleteBtn.textContent = 'Delete';
+//   const ingNameActions = createNameActions(id, name);
+//   const ingInfo = createIngInfo(stockPrice, quantity, unit);
 
-  [editBtn, deleteBtn].forEach((button) => (button.dataset.ingId = id));
+//   const ingCard = createElement('div', 'ingredient-card');
+//   ingCard.append(ingNameActions, ingInfo);
 
-  const buttons = createElement('div', 'buttons');
-  buttons.append(editBtn, deleteBtn);
+//   return ingCard;
+// }
 
-  const nameActionsCont = createElement('div', 'ing-name-actions-container');
-  nameActionsCont.append(recipeName, buttons);
-  return nameActionsCont;
-}
+// function createNameActions(id, name) {
+//   const recipeName = createElement('h3');
+//   recipeName.textContent = name;
 
-function createIngInfo(stockPrice, quantity, unit) {
-  const cost = createElement('p', 'ing-price-ui');
-  cost.textContent = `Cost: ${stockPrice} MXN`;
+//   const editBtn = createElement('button', 'edit-ing-btn');
+//   editBtn.textContent = 'Edit';
+//   const deleteBtn = createElement('button', 'del-ing-btn');
+//   deleteBtn.textContent = 'Delete';
 
-  const quantityUnit = createElement('p', 'ing-quantity-unit');
-  quantityUnit.textContent = `Unit: ${quantity} ${quantity > 1 ? unit : unit.slice(0, -1)}`;
+//   [editBtn, deleteBtn].forEach((button) => (button.dataset.ingId = id));
 
-  const ingInfoCont = createElement('div', 'ing-info-container');
-  ingInfoCont.append(quantityUnit, cost);
+//   const buttons = createElement('div', 'buttons');
+//   buttons.append(editBtn, deleteBtn);
 
-  return ingInfoCont;
-}
+//   const nameActionsCont = createElement('div', 'ing-name-actions-container');
+//   nameActionsCont.append(recipeName, buttons);
+//   return nameActionsCont;
+// }
 
-export function createElement(element, className) {
-  const elem = document.createElement(element);
-  if (className) elem.classList.add(className);
-  return elem;
-}
+// function createIngInfo(stockPrice, quantity, unit) {
+//   const cost = createElement('p', 'ing-price-ui');
+//   cost.textContent = `Cost: ${stockPrice} MXN`;
+
+//   const quantityUnit = createElement('p', 'ing-quantity-unit');
+//   quantityUnit.textContent = `Unit: ${quantity} ${quantity > 1 ? unit : unit.slice(0, -1)}`;
+
+//   const ingInfoCont = createElement('div', 'ing-info-container');
+//   ingInfoCont.append(quantityUnit, cost);
+
+//   return ingInfoCont;
+// }
+
+// export function createElement(element, className) {
+//   const elem = document.createElement(element);
+//   if (className) elem.classList.add(className);
+//   return elem;
+// }
 
 // const ingCardBtnContainer = document.querySelector('.ingredient-card .buttons');
 
@@ -87,6 +106,5 @@ export function createElement(element, className) {
 //       e.target.dataset.ingId,
 //     );
 
-    
 //   }
 // });
