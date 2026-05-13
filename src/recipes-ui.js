@@ -56,7 +56,7 @@ addIngToRecipeBtn.addEventListener('click', () => {
 
   const priceUsed =
     ingUsed.recipeUse.quantityUsed * ingUsed.recipeUse.pricePerUnit;
-  ingUsed.recipeUse.ingPriceUsed = priceUsed;
+  ingUsed.recipeUse.ingPriceUsed = Number(priceUsed.toFixed(2));
 
   pendingIng.push(ingUsed);
   updateIngFormList(ingUsed);
