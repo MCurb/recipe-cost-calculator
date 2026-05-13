@@ -82,38 +82,13 @@ addRecipeBtn.addEventListener('click', () => {
   console.log(recipesClass.getRecipe(newRecipe.id));
 });
 
+const ulList = document.querySelector('ul.ing-min-cards-container');
+const ingMinCardTemplate = document.querySelector('.ing-min-card-template');
+
 function updateIngFormList(ingObj) {
   const { name } = ingObj.ingInfo;
   const { quantityUsed, unitUsed, ingPriceUsed } = ingObj.recipeUse;
 
-  const ingMinCard = createIngMinCard(
-    name,
-    quantityUsed,
-    unitUsed,
-    ingPriceUsed,
-  );
-
-  const ulList = document.querySelector('ul.ing-min-cards-container');
-  ulList.classList.add('visible');
-  ulList.append(ingMinCard);
-}
-
-function createIngMinCard(name, quantityUsed, unitUsed, ingPriceUsed) {
-  const ingName = createElement('p');
-  ingName.textContent = name;
-  const ingMinDetailsSec = createIngMinDetails(
-    quantityUsed,
-    unitUsed,
-    ingPriceUsed,
-  );
-
-  const ingMinCard = createElement('li', 'ing-min-card');
-  ingMinCard.append(ingName, ingMinDetailsSec);
-
-  return ingMinCard;
-}
-
-function createIngMinDetails(quantityUsed, unitUsed, ingPriceUsed) {
   const unitAbb = {
     grams: 'g',
     kilograms: 'kg',
@@ -121,15 +96,66 @@ function createIngMinDetails(quantityUsed, unitUsed, ingPriceUsed) {
     milliliters: 'ml',
   };
 
-  const quantity = createElement('p');
-  quantity.textContent = `${quantityUsed}${unitAbb[unitUsed]}`;
+  const ingMinCard = ingMinCardTemplate.content.cloneNode(true);
 
-  const price = createElement('p');
-  price.textContent = `${ingPriceUsed} MXN`;
+  ingMinCard.querySelector('.min-card-name').textContent = name;
+  ingMinCard.querySelector('.min-card-unit').textContent =
+    `${quantityUsed}${unitAbb[unitUsed]}`;
+  ingMinCard.querySelector('.min-card-price').textContent =
+    `${ingPriceUsed} MXN`;
 
-  const minDetailsWrapper = createElement('div', 'ing-min-details');
-
-  minDetailsWrapper.append(quantity, price);
-
-  return minDetailsWrapper;
+  !ulList.classList.contains('visible') && ulList.classList.add('visible');
+  ulList.appendChild(ingMinCard);
 }
+
+// function updateIngFormList(ingObj) {
+//   const { name } = ingObj.ingInfo;
+//   const { quantityUsed, unitUsed, ingPriceUsed } = ingObj.recipeUse;
+
+//   const ingMinCard = createIngMinCard(
+//     name,
+//     quantityUsed,
+//     unitUsed,
+//     ingPriceUsed,
+//   );
+
+//   const ulList = document.querySelector('ul.ing-min-cards-container');
+//   ulList.classList.add('visible');
+//   ulList.append(ingMinCard);
+// }
+
+// function createIngMinCard(name, quantityUsed, unitUsed, ingPriceUsed) {
+//   const ingName = createElement('p');
+//   ingName.textContent = name;
+//   const ingMinDetailsSec = createIngMinDetails(
+//     quantityUsed,
+//     unitUsed,
+//     ingPriceUsed,
+//   );
+
+//   const ingMinCard = createElement('li', 'ing-min-card');
+//   ingMinCard.append(ingName, ingMinDetailsSec);
+
+//   return ingMinCard;
+// }
+
+// function createIngMinDetails(quantityUsed, unitUsed, ingPriceUsed) {
+//   const unitAbb = {
+//     grams: 'g',
+//     kilograms: 'kg',
+//     liters: 'lt',
+//     milliliters: 'ml',
+//   };
+
+//   const quantity = createElement('p');
+//   quantity.textContent = `${quantityUsed}${unitAbb[unitUsed]}`;
+
+//   const price = createElement('p');
+//   price.textContent = `${ingPriceUsed} MXN`;
+
+//   const minDetailsWrapper = createElement('div', 'ing-min-details');
+
+//   minDetailsWrapper.append(quantity, price);
+
+//   return minDetailsWrapper;
+// }

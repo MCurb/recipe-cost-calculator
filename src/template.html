@@ -67,15 +67,7 @@
           <input type="text" id="recipe-name" class="recipe-name" />
         </div>
 
-        <ul class="ing-min-cards-container">
-          <li class="ing-min-card">
-            <p>Harina</p>
-            <div class="ing-min-details">
-              <p>150g</p>
-              <p>50 MXN</p>
-            </div>
-          </li>
-        </ul>
+        <ul class="ing-min-cards-container"></ul>
 
         <fieldset class="ing-used-section">
           <legend>Add ingredient to recipe:</legend>
@@ -103,20 +95,22 @@
               </select>
             </div>
           </div>
-          <button type="button" class="add-ing-recipe-btn">Add Ingredient</button>
+          <button type="button" class="add-ing-recipe-btn">
+            Add Ingredient
+          </button>
         </fieldset>
 
         <button type="button" class="add-recipe-btn">Add Recipe</button>
       </form>
-      <!-- <ul class="ing-min-cards-container">
+      <template class="ing-min-card-template">
         <li class="ing-min-card">
-          <p>Harina</p>
+          <p class="min-card-name">Harina</p>
           <div class="ing-min-details">
-            <p>150g</p>
-            <p>50 MXN</p>
+            <p class="min-card-unit">150g</p>
+            <p class="min-card-price">50 MXN</p>
           </div>
         </li>
-      </ul> -->
+      </template>
     </section>
   </body>
 </html>
