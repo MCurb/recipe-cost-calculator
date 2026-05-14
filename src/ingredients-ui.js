@@ -35,6 +35,7 @@ function createIngCardUI(ingredientObj) {
   const { id, name, stockPrice, quantity, unit } = ingredientObj;
 
   const ingCard = ingCardTemplate.content.cloneNode(true);
+  ingCard.firstElementChild.dataset.ingId = id;
 
   ingCard.querySelector('.card-ing-name').textContent = name;
   ingCard.querySelector('.card-ing-unit').textContent =

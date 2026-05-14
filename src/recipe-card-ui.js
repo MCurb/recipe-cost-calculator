@@ -6,6 +6,7 @@ export function createRecipeCard(recipeObj) {
   const { id, name, recipeCost, ingredientsUsed } = recipeObj;
 
   const recipeCard = recipeCardTemp.content.cloneNode(true);
+  recipeCard.firstElementChild.dataset.recipeId = id;
 
   recipeCard.querySelector('.card-recipe-name').textContent = name;
   recipeCard.querySelector('.card-recipe-price').textContent =
