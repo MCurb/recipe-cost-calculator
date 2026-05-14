@@ -1,11 +1,14 @@
 import { observer } from './observer';
 import { ingredientsClass } from './storage/ingredients';
+import { createIngCardUI } from './ingredient-card';
 
 // ========================
 // DOM REFERENCES (static)
 // ========================
 
 const ingCardsCont = document.querySelector('.ing-cards-container');
+
+// === Ingredient Form ===
 
 const addIngBtn = document.querySelector('.add-ing-btn');
 const ingName = document.querySelector('.ing-name');
@@ -29,31 +32,28 @@ addIngBtn.addEventListener('click', () => {
   ingCardsCont.appendChild(createIngCardUI(newIngredient));
 });
 
-const ingCardTemplate = document.querySelector('.ingredient-card-template');
+// === Ingredient Cards ===
 
-function createIngCardUI(ingredientObj) {
-  const { id, name, stockPrice, quantity, unit } = ingredientObj;
+const ingCardsContainer = document.querySelector('.ing-cards-container');
 
-  const ingCard = ingCardTemplate.content.cloneNode(true);
-  ingCard.firstElementChild.dataset.ingId = id;
+ingCardsContainer.addEventListener('click', (e) => {
+  if (e.target.classList.contains('del-ing-btn')) {
+    const ingId = e.target.dataset.ingId;
 
-  ingCard.querySelector('.card-ing-name').textContent = name;
-  ingCard.querySelector('.card-ing-unit').textContent =
-    `Unit: ${quantity} ${quantity > 1 ? unit : unit.slice(0, -1)}`;
-  ingCard.querySelector('.card-ing-price').textContent =
-    `Cost: ${stockPrice} MXN`;
-  ingCard.querySelectorAll('button').forEach((button) => {
-    button.dataset.ingId = id;
-  });
+    ingredientsClass.removeIngredient(ingId);
 
-  return ingCard;
+    updateIngCardsUI(ingId, 'delete');
+    observer.notify(ingredientsClass.getIngredientsData());
+  }
+});
+
+function updateIngCardsUI(ingId, action) {
+  if (action === 'delete') {
+    //find ing card node
+    const ingCard = document.querySelector(
+      `.ingredient-card[data-ing-id="${ingId}"]`,
+    );
+    //delete it
+    ingCard.remove();
+  }
 }
-
-// ingCardBtnContainer.addEventListener('click', (e) => {
-//   if (e.target.classList.contains('edit-ing-btn')) {
-//     const ingredientObj = ingredientsClass.getIngredient(
-//       e.target.dataset.ingId,
-//     );
-
-//   }
-// });

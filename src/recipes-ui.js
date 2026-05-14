@@ -2,7 +2,6 @@ import convert from 'convert';
 import { observer } from './observer';
 import { ingredientsClass } from './storage/ingredients';
 import { recipesClass } from './storage/recipes';
-import { createElement } from './ingredients-ui';
 import { createRecipeCard } from './recipe-card-ui';
 
 // ========================
@@ -21,19 +20,16 @@ const ingUnitUsed = document.querySelector('.ing-unit-used');
 
 const selectIng = document.querySelector('.select-ingredient');
 
-const ingElements = new Map();
-
 function updateIngSelect(ingredientsObj) {
-  ingredientsObj.forEach((ingredient) => {
-    if (ingElements.has(ingredient.id)) return;
+  selectIng.innerHTML = '';
 
+  ingredientsObj.forEach((ingredient) => {
     const ingElem = document.createElement('option');
     ingElem.textContent = ingredient.name;
     ingElem.setAttribute('value', ingredient.name);
     ingElem.dataset.id = ingredient.id;
 
     selectIng.appendChild(ingElem);
-    ingElements.set(ingredient.id, ingElem);
   });
 }
 
