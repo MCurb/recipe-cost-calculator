@@ -12,7 +12,7 @@ class Ingredients {
   }
 
   getIngredientsData() {
-    return this.ingredients;
+    return [...this.ingredients];
   }
 
   getIngredient(id) {
@@ -24,10 +24,10 @@ class Ingredients {
   }
 
   removeIngredient(id) {
-    this.ingredients = this.ingredients.filter((ingredient) => {
-      ingredient.id !== id;
-    });
+    this.ingredients = this.ingredients.filter(
+      (ingredient) => ingredient.id !== id,
+    );
   }
 }
 
-export const ingredientsClass = new Ingredients();
+export const ingredientsManager = new Ingredients();

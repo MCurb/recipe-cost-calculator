@@ -1,4 +1,4 @@
-import { populateIngList } from './recipes-ui';
+import { createIngMinCard } from './recipes-ui';
 
 const recipeCardTemp = document.querySelector('.recipe-card-template');
 
@@ -16,7 +16,7 @@ export function createRecipeCard(recipeObj) {
   });
   const ingList = recipeCard.querySelector('.ing-card-list');
   ingredientsUsed.forEach((ingredientObj) => {
-    populateIngList(ingredientObj, ingList);
+    createIngMinCard(ingredientObj, ingList);
   });
 
   return recipeCard;

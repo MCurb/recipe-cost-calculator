@@ -1,5 +1,5 @@
 import { observer } from './observer';
-import { ingredientsClass } from './storage/ingredients';
+import { ingredientsManager } from './storage/ingredients';
 import { createIngCardUI } from './ingredient-card';
 
 // ========================
@@ -25,9 +25,9 @@ addIngBtn.addEventListener('click', () => {
     unit: ingUnit.value,
   };
 
-  ingredientsClass.addIngredient(newIngredient);
-  observer.notify(ingredientsClass.getIngredientsData());
-  console.log(ingredientsClass.getIngredient(newIngredient.id));
+  ingredientsManager.addIngredient(newIngredient);
+  observer.notify(ingredientsManager.getIngredientsData());
+  console.log(ingredientsManager.getIngredient(newIngredient.id));
 
   ingCardsCont.appendChild(createIngCardUI(newIngredient));
 });
@@ -40,10 +40,10 @@ ingCardsContainer.addEventListener('click', (e) => {
   if (e.target.classList.contains('del-ing-btn')) {
     const ingId = e.target.dataset.ingId;
 
-    ingredientsClass.removeIngredient(ingId);
+    ingredientsManager.removeIngredient(ingId);
 
     updateIngCardsUI(ingId, 'delete');
-    observer.notify(ingredientsClass.getIngredientsData());
+    observer.notify(ingredientsManager.getIngredientsData());
   }
 });
 
@@ -57,3 +57,8 @@ function updateIngCardsUI(ingId, action) {
     ingCard.remove();
   }
 }
+
+// Instead of the event handler manually updating other parts of the website,
+// it should only notify (to the relevant observers) the data has changed,
+// and the observers themselves should deal with the new data doing their job.
+// I should also create multiple observers, containing only the relevant subscribers

@@ -1,6 +1,6 @@
 import convert from 'convert';
 import { observer } from './observer';
-import { ingredientsClass } from './storage/ingredients';
+import { ingredientsManager } from './storage/ingredients';
 import { recipesClass } from './storage/recipes';
 import { createRecipeCard } from './recipe-card-ui';
 
@@ -34,13 +34,13 @@ function updateIngSelect(ingredientsObj) {
 }
 
 observer.subscribe(updateIngSelect);
-observer.notify(ingredientsClass.getIngredientsData());
+observer.notify(ingredientsManager.getIngredientsData());
 
 let pendingIng = [];
 
 addIngToRecipeBtn.addEventListener('click', () => {
   const ingUsedId = selectIng.selectedOptions[0].dataset.id;
-  const ingObj = ingredientsClass.getIngredient(ingUsedId);
+  const ingObj = ingredientsManager.getIngredient(ingUsedId);
   const { stockPrice, quantity, unit } = ingObj;
 
   const ingUsed = {
@@ -60,7 +60,7 @@ addIngToRecipeBtn.addEventListener('click', () => {
   ingUsed.recipeUse.ingPriceUsed = Number(priceUsed.toFixed(2));
 
   pendingIng.push(ingUsed);
-  populateIngList(ingUsed, ulIngForm);
+  createIngMinCard(ingUsed, ulIngForm);
 });
 
 addRecipeBtn.addEventListener('click', () => {
@@ -86,7 +86,7 @@ addRecipeBtn.addEventListener('click', () => {
 
 const ingMinCardTemplate = document.querySelector('.ing-min-card-template');
 
-export function populateIngList(ingObj, ulContainer) {
+export function createIngMinCard(ingObj, ulContainer) {
   const { name } = ingObj.ingInfo;
   const { quantityUsed, unitUsed, ingPriceUsed } = ingObj.recipeUse;
 
