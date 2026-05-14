@@ -16,7 +16,7 @@ class Ingredients {
   }
 
   getIngredient(id) {
-    return this.ingredients.filter((ingredient) => ingredient.id === id)[0];
+    return this.ingredients.find((ingredient) => ingredient.id === id);
   }
 
   addIngredient(obj) {

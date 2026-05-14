@@ -31,7 +31,7 @@ class Recipes {
   }
 
   getRecipe(id) {
-    return this.recipes.filter((recipe) => recipe.id === id)[0];
+    return this.recipes.find((recipe) => recipe.id === id);
   }
 
   addRecipe(obj) {
