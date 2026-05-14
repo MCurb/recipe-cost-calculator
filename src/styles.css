@@ -74,6 +74,10 @@ h6 {
   isolation: isolate;
 }
 
+ul {
+  padding: 0;
+}
+
 section {
   display: flex;
   flex-direction: column;
@@ -130,6 +134,7 @@ ul.ing-min-cards-container {
 li.ing-min-card {
   display: flex;
   justify-content: space-between;
+  gap: 12px;
   border: 1px solid gray;
   border-radius: 8px;
   padding: 4px 12px;
@@ -139,6 +144,46 @@ li.ing-min-card {
 .ing-min-details {
   display: flex;
   gap: 12px;
+}
+
+/* RECIPE CARD */
+
+.recipe-cards-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  width: 100%;
+  padding: 20px;
+}
+
+.recipe-card {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: min(400px, 100%);
+  padding: 8px 20px;
+  border: 2px solid;
+  border-radius: 20px;
+}
+
+.recipe-card-info {
+  display: flex;
+  justify-content: space-around;
+}
+
+.recipe-card .ing-list-container {
+  align-self: center;
+}
+
+ul.ing-card-list.visible {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.recipe-card .buttons {
+  justify-content: space-around;
 }
 
 /* Global Form Styles */

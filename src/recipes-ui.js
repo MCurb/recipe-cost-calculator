@@ -3,10 +3,15 @@ import { observer } from './observer';
 import { ingredientsClass } from './storage/ingredients';
 import { recipesClass } from './storage/recipes';
 import { createElement } from './ingredients-ui';
+import { createRecipeCard } from './recipe-card-ui';
 
 // ========================
 // DOM REFERENCES (static)
 // ========================
+
+const ulIngForm = document.querySelector('ul.ing-min-cards-container');
+
+const recipesCont = document.querySelector('.recipe-cards-container');
 
 const addIngToRecipeBtn = document.querySelector('.add-ing-recipe-btn');
 const addRecipeBtn = document.querySelector('.add-recipe-btn');
@@ -59,7 +64,7 @@ addIngToRecipeBtn.addEventListener('click', () => {
   ingUsed.recipeUse.ingPriceUsed = Number(priceUsed.toFixed(2));
 
   pendingIng.push(ingUsed);
-  updateIngFormList(ingUsed);
+  populateIngList(ingUsed, ulIngForm);
 });
 
 addRecipeBtn.addEventListener('click', () => {
@@ -79,13 +84,13 @@ addRecipeBtn.addEventListener('click', () => {
   });
 
   recipesClass.addRecipe(newRecipe);
+  recipesCont.appendChild(createRecipeCard(newRecipe));
   console.log(recipesClass.getRecipe(newRecipe.id));
 });
 
-const ulList = document.querySelector('ul.ing-min-cards-container');
 const ingMinCardTemplate = document.querySelector('.ing-min-card-template');
 
-function updateIngFormList(ingObj) {
+export function populateIngList(ingObj, ulContainer) {
   const { name } = ingObj.ingInfo;
   const { quantityUsed, unitUsed, ingPriceUsed } = ingObj.recipeUse;
 
@@ -104,6 +109,7 @@ function updateIngFormList(ingObj) {
   ingMinCard.querySelector('.min-card-price').textContent =
     `${ingPriceUsed} MXN`;
 
-  !ulList.classList.contains('visible') && ulList.classList.add('visible');
-  ulList.appendChild(ingMinCard);
+  !ulContainer.classList.contains('visible') &&
+    ulContainer.classList.add('visible');
+  ulContainer.appendChild(ingMinCard);
 }
