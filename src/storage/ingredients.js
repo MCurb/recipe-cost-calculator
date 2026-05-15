@@ -1,3 +1,5 @@
+import { ingObservers } from '../observer';
+
 class Ingredients {
   constructor() {
     this.ingredients = [
@@ -19,14 +21,24 @@ class Ingredients {
     return this.ingredients.find((ingredient) => ingredient.id === id);
   }
 
-  addIngredient(obj) {
-    this.ingredients.push(obj);
+  addIngredient({ name, stockPrice, quantity, unit }) {
+    const newIng = {
+      id: crypto.randomUUID(),
+      name: name,
+      stockPrice: stockPrice,
+      quantity: quantity,
+      unit: unit,
+    };
+
+    this.ingredients.push(newIng);
+    ingObservers.notify(this.getIngredientsData());
   }
 
   removeIngredient(id) {
     this.ingredients = this.ingredients.filter(
       (ingredient) => ingredient.id !== id,
     );
+    ingObservers.notify(this.getIngredientsData());
   }
 }
 

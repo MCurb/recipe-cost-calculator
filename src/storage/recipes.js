@@ -1,3 +1,5 @@
+import { recipeObservers } from '../observer';
+
 class Recipes {
   constructor() {
     this.recipes = [
@@ -36,12 +38,14 @@ class Recipes {
 
   addRecipe(obj) {
     this.recipes.push(obj);
+    recipeObservers.notify(this.getRecipesData());
   }
 
   removeRecipe(id) {
     this.recipes = this.recipes.filter((recipe) => {
       recipe.id !== id;
     });
+    recipeObservers.notify(this.getRecipesData());
   }
 }
 

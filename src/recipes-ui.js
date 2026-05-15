@@ -1,16 +1,14 @@
 import convert from 'convert';
-import { observer } from './observer';
+import { ingObservers } from './observer';
 import { ingredientsManager } from './storage/ingredients';
 import { recipesClass } from './storage/recipes';
-import { createRecipeCard } from './recipe-card-ui';
+import { createIngMinCard } from './ingredient-card';
 
 // ========================
 // DOM REFERENCES (static)
 // ========================
 
 const ulIngForm = document.querySelector('ul.ing-min-cards-container');
-
-const recipesCont = document.querySelector('.recipe-cards-container');
 
 const addIngToRecipeBtn = document.querySelector('.add-ing-recipe-btn');
 const addRecipeBtn = document.querySelector('.add-recipe-btn');
@@ -19,22 +17,6 @@ const ingQuantityUsed = document.querySelector('.recipe-ing-quantity');
 const ingUnitUsed = document.querySelector('.ing-unit-used');
 
 const selectIng = document.querySelector('.select-ingredient');
-
-function updateIngSelect(ingredientsObj) {
-  selectIng.innerHTML = '';
-
-  ingredientsObj.forEach((ingredient) => {
-    const ingElem = document.createElement('option');
-    ingElem.textContent = ingredient.name;
-    ingElem.setAttribute('value', ingredient.name);
-    ingElem.dataset.id = ingredient.id;
-
-    selectIng.appendChild(ingElem);
-  });
-}
-
-observer.subscribe(updateIngSelect);
-observer.notify(ingredientsManager.getIngredientsData());
 
 let pendingIng = [];
 
@@ -60,7 +42,7 @@ addIngToRecipeBtn.addEventListener('click', () => {
   ingUsed.recipeUse.ingPriceUsed = Number(priceUsed.toFixed(2));
 
   pendingIng.push(ingUsed);
-  createIngMinCard(ingUsed, ulIngForm);
+  updateIngFormList(pendingIng);
 });
 
 addRecipeBtn.addEventListener('click', () => {
@@ -71,41 +53,43 @@ addRecipeBtn.addEventListener('click', () => {
     recipeCost: 0,
   };
 
+  // Add ingredients and calculate recipeCost
   pendingIng.forEach((ingredient) => {
     newRecipe.ingredientsUsed.push(ingredient);
-  });
-
-  newRecipe.ingredientsUsed.forEach((ingredient) => {
     newRecipe.recipeCost += ingredient.recipeUse.ingPriceUsed;
   });
 
   recipesClass.addRecipe(newRecipe);
-  recipesCont.appendChild(createRecipeCard(newRecipe));
   console.log(recipesClass.getRecipe(newRecipe.id));
 });
 
-const ingMinCardTemplate = document.querySelector('.ing-min-card-template');
+// Updater Function
+function updateIngFormList(ingredients) {
+  ulIngForm.innerHTML = '';
+  !ulIngForm.classList.contains('visible') &&
+    ulIngForm.classList.add('visible');
 
-export function createIngMinCard(ingObj, ulContainer) {
-  const { name } = ingObj.ingInfo;
-  const { quantityUsed, unitUsed, ingPriceUsed } = ingObj.recipeUse;
+  ingredients.forEach((ingredient) => {
+    ulIngForm.appendChild(createIngMinCard(ingredient));
+  });
+}
 
-  const unitAbb = {
-    grams: 'g',
-    kilograms: 'kg',
-    liters: 'lt',
-    milliliters: 'ml',
-  };
+// Updater Function
+ingObservers.subscribe(updateIngSelect);
+function updateIngSelect(ingredientsObj) {
+  selectIng.innerHTML = '';
 
-  const ingMinCard = ingMinCardTemplate.content.cloneNode(true);
+  ingredientsObj.forEach((ingredient) => {
+    selectIng.appendChild(createIngOption(ingredient));
+  });
+}
 
-  ingMinCard.querySelector('.min-card-name').textContent = name;
-  ingMinCard.querySelector('.min-card-unit').textContent =
-    `${quantityUsed}${unitAbb[unitUsed]}`;
-  ingMinCard.querySelector('.min-card-price').textContent =
-    `${ingPriceUsed} MXN`;
+// Helper function
+function createIngOption(ingredient) {
+  const ingElem = document.createElement('option');
+  ingElem.textContent = ingredient.name;
+  ingElem.setAttribute('value', ingredient.name);
+  ingElem.dataset.id = ingredient.id;
 
-  !ulContainer.classList.contains('visible') &&
-    ulContainer.classList.add('visible');
-  ulContainer.appendChild(ingMinCard);
+  return ingElem;
 }

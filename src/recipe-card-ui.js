@@ -1,8 +1,11 @@
-import { createIngMinCard } from './recipes-ui';
+import { recipeObservers } from './observer';
+import { createIngMinCard } from './ingredient-card';
+
+const recipeCardsCont = document.querySelector('.recipe-cards-container');
 
 const recipeCardTemp = document.querySelector('.recipe-card-template');
 
-export function createRecipeCard(recipeObj) {
+function createRecipeCard(recipeObj) {
   const { id, name, recipeCost, ingredientsUsed } = recipeObj;
 
   const recipeCard = recipeCardTemp.content.cloneNode(true);
@@ -16,8 +19,16 @@ export function createRecipeCard(recipeObj) {
   });
   const ingList = recipeCard.querySelector('.ing-card-list');
   ingredientsUsed.forEach((ingredientObj) => {
-    createIngMinCard(ingredientObj, ingList);
+    ingList.appendChild(createIngMinCard(ingredientObj));
   });
 
   return recipeCard;
 }
+
+function updateRecipeCardsCont(recipes) {
+  recipeCardsCont.innerHTML = '';
+  recipes.forEach((recipe) => {
+    recipeCardsCont.appendChild(createRecipeCard(recipe));
+  });
+}
+recipeObservers.subscribe(updateRecipeCardsCont);
