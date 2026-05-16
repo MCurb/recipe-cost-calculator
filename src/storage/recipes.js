@@ -3,28 +3,20 @@ import { recipeObservers } from '../observer';
 class Recipes {
   constructor() {
     this.recipes = [
-      {
-        id: crypto.randomUUID(),
-        name: 'Pastel de Zanahoria',
-        ingredientsUsed: [
-          {
-            ingInfo: {
-              id: 'ing id',
-              name: 'Harina',
-              stockPrice: 24,
-              quantity: 500,
-              unit: 'grams',
-            },
-            recipeUse: {
-              quantityUsed: 1,
-              unitUsed: 'kilograms',
-              pricePerUnit: 48,
-              ingPriceUsed: 48,
-            },
-          },
-        ],
-        recipeCost: 48,
-      },
+      // {
+      //   id: crypto.randomUUID(),
+      //   name: 'Pastel de Zanahoria',
+      //   ingredientsUsed: [
+      //     {
+      //       id: 'ingredientId',
+      //       quantityUsed: 1,
+      //       unitUsed: 'kilograms',
+      //       pricePerUnit: 48,
+      //       ingPriceUsed: 48,
+      //     },
+      //   ],
+      //   recipeCost: 48,
+      // },
     ];
   }
 

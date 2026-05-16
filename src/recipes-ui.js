@@ -22,24 +22,22 @@ let pendingIng = [];
 
 addIngToRecipeBtn.addEventListener('click', () => {
   const ingUsedId = selectIng.selectedOptions[0].dataset.id;
-  const ingObj = ingredientsManager.getIngredient(ingUsedId);
-  const { stockPrice, quantity, unit } = ingObj;
+  const ingredient = ingredientsManager.getIngredient(ingUsedId);
+  const { id, stockPrice, quantity, unit } = ingredient;
 
   const ingUsed = {
-    ingInfo: ingObj,
-    recipeUse: {
-      quantityUsed: ingQuantityUsed.value,
-      unitUsed: ingUnitUsed.value,
-    },
+    id: id,
+    quantityUsed: ingQuantityUsed.value,
+    unitUsed: ingUnitUsed.value,
+    pricePerUnit: null,
+    ingPriceUsed: null,
   };
 
-  const priceUnit =
-    stockPrice / convert(quantity, unit).to(ingUsed.recipeUse.unitUsed);
-  ingUsed.recipeUse.pricePerUnit = priceUnit;
+  const priceUnit = stockPrice / convert(quantity, unit).to(ingUsed.unitUsed);
+  ingUsed.pricePerUnit = priceUnit;
 
-  const priceUsed =
-    ingUsed.recipeUse.quantityUsed * ingUsed.recipeUse.pricePerUnit;
-  ingUsed.recipeUse.ingPriceUsed = Number(priceUsed.toFixed(2));
+  const priceUsed = ingUsed.quantityUsed * ingUsed.pricePerUnit;
+  ingUsed.ingPriceUsed = Number(priceUsed.toFixed(2));
 
   pendingIng.push(ingUsed);
   updateIngFormList(pendingIng);
@@ -56,7 +54,7 @@ addRecipeBtn.addEventListener('click', () => {
   // Add ingredients and calculate recipeCost
   pendingIng.forEach((ingredient) => {
     newRecipe.ingredientsUsed.push(ingredient);
-    newRecipe.recipeCost += ingredient.recipeUse.ingPriceUsed;
+    newRecipe.recipeCost += ingredient.ingPriceUsed;
   });
 
   recipesClass.addRecipe(newRecipe);

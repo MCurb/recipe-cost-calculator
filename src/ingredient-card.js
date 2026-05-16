@@ -1,4 +1,5 @@
 import { ingObservers } from './observer';
+import { ingredientsManager } from './storage/ingredients';
 
 const ingCardTemplate = document.querySelector('.ingredient-card-template');
 
@@ -23,8 +24,8 @@ export function createIngCardUI(ingredientObj) {
 const ingMinCardTemplate = document.querySelector('.ing-min-card-template');
 // Helper function
 export function createIngMinCard(ingObj) {
-  const { name } = ingObj.ingInfo;
-  const { quantityUsed, unitUsed, ingPriceUsed } = ingObj.recipeUse;
+  const { id, quantityUsed, unitUsed, ingPriceUsed } = ingObj;
+  const { name } = ingredientsManager.getIngredient(id);
 
   const unitAbb = {
     grams: 'g',
