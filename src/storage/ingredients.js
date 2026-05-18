@@ -40,6 +40,13 @@ class Ingredients {
     );
     ingObservers.notify(this.getIngredientsData());
   }
+
+  updateIngredient(id, newIng) {
+    const currentIng = this.getIngredient(id);
+    const updatedIng = { ...newIng, id: currentIng.id };
+    this.ingredients.push(updatedIng);
+    ingObservers.notify(this.getIngredientsData());
+  }
 }
 
 export const ingredientsManager = new Ingredients();

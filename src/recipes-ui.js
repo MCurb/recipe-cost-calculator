@@ -27,7 +27,7 @@ addIngToRecipeBtn.addEventListener('click', () => {
 
   const ingUsed = {
     id: id,
-    quantityUsed: ingQuantityUsed.value,
+    quantityUsed: Number(ingQuantityUsed.value),
     unitUsed: ingUnitUsed.value,
     pricePerUnit: null,
     ingPriceUsed: null,
@@ -73,7 +73,6 @@ function updateIngFormList(ingredients) {
 }
 
 // Updater Function
-ingObservers.subscribe(updateIngSelect);
 function updateIngSelect(ingredientsObj) {
   selectIng.innerHTML = '';
 
@@ -81,6 +80,7 @@ function updateIngSelect(ingredientsObj) {
     selectIng.appendChild(createIngOption(ingredient));
   });
 }
+ingObservers.subscribe(updateIngSelect);
 
 // Helper function
 function createIngOption(ingredient) {
