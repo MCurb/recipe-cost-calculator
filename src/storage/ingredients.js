@@ -41,10 +41,10 @@ class Ingredients {
     ingObservers.notify(this.getIngredientsData());
   }
 
-  updateIngredient(id, newIng) {
+  updateIngredient(id, updatedIng) {
     const currentIng = this.getIngredient(id);
-    const updatedIng = { ...newIng, id: currentIng.id };
-    this.ingredients.push(updatedIng);
+    Object.assign(currentIng, updatedIng);
+
     ingObservers.notify(this.getIngredientsData());
   }
 }
