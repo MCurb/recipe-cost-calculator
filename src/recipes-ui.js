@@ -1,12 +1,16 @@
 import convert from 'convert';
-import { ingObservers } from './observer';
+import { ingObservers, pendingIngObservers } from './observer';
 import { ingredientsManager } from './storage/ingredients';
-import { recipesClass } from './storage/recipes';
+import { recipesManager } from './storage/recipes';
 import { createIngMinCard } from './ingredient-card';
+import { calculateIngredient } from './calculations';
+import { pendingIngManager } from './pendingIngClass';
 
 // ========================
 // DOM REFERENCES (static)
 // ========================
+
+// === Recipe Form Ref ===
 
 const ulIngForm = document.querySelector('ul.ing-min-cards-container');
 
@@ -18,48 +22,87 @@ const ingUnitUsed = document.querySelector('.ing-unit-used');
 
 const selectIng = document.querySelector('.select-ingredient');
 
-let pendingIng = [];
+// === Recipe Form Listeners ===
 
 addIngToRecipeBtn.addEventListener('click', () => {
   const ingUsedId = selectIng.selectedOptions[0].dataset.id;
   const ingredient = ingredientsManager.getIngredient(ingUsedId);
-  const { id, stockPrice, quantity, unit } = ingredient;
 
   const ingUsed = {
-    id: id,
+    id: ingredient.id,
     quantityUsed: Number(ingQuantityUsed.value),
     unitUsed: ingUnitUsed.value,
     pricePerUnit: null,
     ingPriceUsed: null,
   };
 
-  const priceUnit = stockPrice / convert(quantity, unit).to(ingUsed.unitUsed);
-  ingUsed.pricePerUnit = priceUnit;
+  const { unitPrice, totalIngCost } = calculateIngredient({
+    ...ingredient,
+    ...ingUsed,
+  });
 
-  const priceUsed = ingUsed.quantityUsed * ingUsed.pricePerUnit;
-  ingUsed.ingPriceUsed = Number(priceUsed.toFixed(2));
+  ingUsed.pricePerUnit = unitPrice;
+  ingUsed.ingPriceUsed = Number(totalIngCost.toFixed(2));
 
-  pendingIng.push(ingUsed);
-  updateIngFormList(pendingIng);
+  pendingIngManager.addIngredient(ingUsed);
 });
 
-addRecipeBtn.addEventListener('click', () => {
+addRecipeBtn.addEventListener('click', (e) => {
+  const { dataset } = e.target;
+  // const recipeExists = recipesManager.getRecipe(dataset.recipeId);
+  // if (recipeExists) {
+  //   const updatedRecipe = {
+  //     name: recipeName.value,
+  //     ingredientsUsed: [],
+  //     recipeCost: 0,
+  //   };
+  // }
+
   const newRecipe = {
-    id: crypto.randomUUID(),
     name: recipeName.value,
     ingredientsUsed: [],
     recipeCost: 0,
   };
 
   // Add ingredients and calculate recipeCost
-  pendingIng.forEach((ingredient) => {
+  const pendingIngredients = pendingIngManager.getPendingIngsData();
+
+  pendingIngredients.forEach((ingredient) => {
     newRecipe.ingredientsUsed.push(ingredient);
     newRecipe.recipeCost += ingredient.ingPriceUsed;
   });
 
-  recipesClass.addRecipe(newRecipe);
-  console.log(recipesClass.getRecipe(newRecipe.id));
+  recipesManager.addRecipe(newRecipe);
 });
+
+// === Recipe Cards Listeners ===
+
+const recipeCardsCont = document.querySelector('.recipe-cards-container');
+
+// Working on adding edit and delete functionallitiy for recipes
+recipeCardsCont.addEventListener('click', (e) => {
+  const { classList, dataset } = e.target;
+  const recipeId = dataset.recipeId;
+
+  if (classList.contains('del-recipe-btn')) {
+    recipesManager.removeRecipe(recipeId);
+  }
+  if (classList.contains('edit-recipe-btn')) {
+    const recipeObj = recipesManager.getRecipe(recipeId);
+    populateRecipeForm(recipeObj);
+  }
+});
+
+function populateRecipeForm(recipeObj) {
+  // Destructure recipe obj info
+  const { id, name, ingredientsUsed } = recipeObj;
+  // name input =  recipe name
+  recipeName.value = name;
+  addRecipeBtn.dataset.recipeId = id;
+  // call update ing form list
+  updateIngFormList(ingredientsUsed);
+  // I need to figure out a way to edit each ingredient used in the recipe
+}
 
 // Updater Function
 function updateIngFormList(ingredients) {
@@ -71,6 +114,7 @@ function updateIngFormList(ingredients) {
     ulIngForm.appendChild(createIngMinCard(ingredient));
   });
 }
+pendingIngObservers.subscribe(updateIngFormList);
 
 // Updater Function
 function updateIngSelect(ingredientsObj) {

@@ -18,3 +18,4 @@ class Observable {
 
 export const ingObservers = new Observable();
 export const recipeObservers = new Observable();
+export const pendingIngObservers = new Observable();

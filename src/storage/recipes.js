@@ -31,22 +31,26 @@ class Recipes {
   }
 
   addRecipe(obj) {
-    this.recipes.push(obj);
+    const recipe = { ...obj, id: crypto.randomUUID() };
+    this.recipes.push(recipe);
     recipeObservers.notify(this.getRecipesData());
   }
 
   removeRecipe(id) {
-    this.recipes = this.recipes.filter((recipe) => {
-      recipe.id !== id;
-    });
+    this.recipes = this.recipes.filter((recipe) => recipe.id !== id);
     recipeObservers.notify(this.getRecipesData());
   }
 
-  recipeUpdater(id, newRecipe) {
-    const recipe = this.getRecipe(id);
-    const updatedRecipe = { ...newRecipe, id: recipe.id };
-    this.recipes.push(updatedRecipe);
+  recipeUpdater(id, updatedRecipe) {
+    const currentRecipe = this.getRecipe(id);
+    Object.assign(currentRecipe, updatedRecipe);
+
     recipeObservers.notify(this.getRecipesData());
+  }
+
+  recipeIngUpdater(recipeId) {
+      //Create a method that takes the recipe
+      //
   }
 
   recipesIngUpdater(ingredients) {
@@ -94,6 +98,6 @@ class Recipes {
   }
 }
 
-export const recipesClass = new Recipes();
+export const recipesManager = new Recipes();
 
-ingObservers.subscribe(recipesClass.recipesIngUpdater.bind(recipesClass));
+ingObservers.subscribe(recipesManager.recipesIngUpdater.bind(recipesManager));
