@@ -35,6 +35,7 @@ export function createIngMinCard(ingObj) {
     milligrams: 'mg',
     ounces: 'oz',
     pounds: 'lb',
+    pieces: 'pc',
   };
 
   const ingMinCard = ingMinCardTemplate.content.cloneNode(true);

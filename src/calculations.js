@@ -10,7 +10,13 @@ export function calculateIngPrices(recipeIngInfo) {
 }
 
 function calculateUnitCost(price, quantity, unit, targetUnit) {
-  const unitPrice = price / convert(quantity, unit).to(targetUnit);
+  let unitPrice;
+  if (unit === 'pieces') {
+    unitPrice = price / quantity;
+    return unitPrice;
+  }
+
+  unitPrice = price / convert(quantity, unit).to(targetUnit);
   return unitPrice;
 }
 
