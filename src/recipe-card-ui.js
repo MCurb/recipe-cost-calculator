@@ -1,5 +1,5 @@
 import { recipeObservers } from './observer';
-import { createIngMinCard } from './ingredient-card';
+import { createIngMinCard } from './ingredient-cards';
 
 const recipeCardsCont = document.querySelector('.recipe-cards-container');
 

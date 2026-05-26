@@ -1,6 +1,6 @@
 import { ingObservers, recipeObservers } from '../observer';
 import { ingredientsManager } from './ingredients';
-import { calculateIngredient } from '../calculations';
+import { calculateIngPrices } from '../calculations';
 
 class Recipes {
   constructor() {
@@ -49,8 +49,8 @@ class Recipes {
   }
 
   recipeIngUpdater(recipeId) {
-      //Create a method that takes the recipe
-      //
+    //Create a method that takes the recipe
+    //
   }
 
   recipesIngUpdater(ingredients) {
@@ -84,7 +84,7 @@ class Recipes {
       recipeIngredient.id,
     );
     const { quantityUsed, unitUsed } = recipeIngredient;
-    const { unitPrice, totalIngCost } = calculateIngredient({
+    const { unitPrice, totalIngCost } = calculateIngPrices({
       stockPrice,
       quantity,
       unit,

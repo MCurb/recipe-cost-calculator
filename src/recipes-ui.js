@@ -1,8 +1,8 @@
 import { ingObservers, pendingIngObservers } from './observer';
 import { ingredientsManager } from './storage/ingredients';
 import { recipesManager } from './storage/recipes';
-import { createIngMinCard } from './ingredient-card';
-import { calculateIngredient } from './calculations';
+import { createIngMinCard } from './ingredient-cards';
+import { calculateIngPrices } from './calculations';
 import { pendingIngManager } from './pendingIngClass';
 
 // ========================
@@ -23,7 +23,8 @@ const selectIng = document.querySelector('.select-ingredient');
 
 // === Recipe Form Listeners ===
 
-addIngToRecipeBtn.addEventListener('click', () => {
+addIngToRecipeBtn.addEventListener('click', (e) => {
+  e.preventDefault();
   const ingUsedId = selectIng.selectedOptions[0].dataset.id;
   const ingredient = ingredientsManager.getIngredient(ingUsedId);
 
@@ -35,7 +36,7 @@ addIngToRecipeBtn.addEventListener('click', () => {
     ingPriceUsed: null,
   };
 
-  const { unitPrice, totalIngCost } = calculateIngredient({
+  const { unitPrice, totalIngCost } = calculateIngPrices({
     ...ingredient,
     ...ingUsed,
   });
@@ -46,10 +47,9 @@ addIngToRecipeBtn.addEventListener('click', () => {
   // Clean ingredient form
   selectIng.value = '';
   ingQuantityUsed.value = '';
-  ingUnitUsed.value = '';
 
   //Update or add new
-  const pendingIngExists = pendingIngManager.getIngredient(ingUsed.id);
+  const pendingIngExists = pendingIngManager.getPendingIng(ingUsed.id);
   if (pendingIngExists) {
     pendingIngManager.updateIngredient(ingUsed.id, ingUsed);
     return;
@@ -131,7 +131,7 @@ ulIngForm.addEventListener('click', (e) => {
 
   if (classList.contains('min-card-edit-btn')) {
     // get the pending ingredient data
-    const pendingIng = pendingIngManager.getIngredient(dataset.ingId);
+    const pendingIng = pendingIngManager.getPendingIng(dataset.ingId);
     // populate the ing form
     populateRecipeIngForm(pendingIng);
   }

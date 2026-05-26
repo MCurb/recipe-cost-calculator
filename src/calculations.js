@@ -1,6 +1,6 @@
 import convert from 'convert';
 
-export function calculateIngredient(recipeIngInfo) {
+export function calculateIngPrices(recipeIngInfo) {
   const { stockPrice, quantity, unit, quantityUsed, unitUsed } = recipeIngInfo;
 
   const unitPrice = calculateUnitCost(stockPrice, quantity, unit, unitUsed);

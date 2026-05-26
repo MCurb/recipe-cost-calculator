@@ -1,11 +1,13 @@
+import { calculateIngPrices } from './calculations';
 import { ingObservers, pendingIngObservers } from './observer';
+import { ingredientsManager } from './storage/ingredients';
 
 class PendingIng {
   constructor() {
     this.pendingIng = [];
   }
 
-  getIngredient(id) {
+  getPendingIng(id) {
     return this.pendingIng.find((ingredient) => ingredient.id === id);
   }
 
@@ -31,7 +33,7 @@ class PendingIng {
   }
 
   updateIngredient(id, updatedIng) {
-    const currentIng = this.getIngredient(id);
+    const currentIng = this.getPendingIng(id);
     Object.assign(currentIng, updatedIng);
     pendingIngObservers.notify(this.getPendingIngsData());
   }
@@ -45,7 +47,23 @@ class PendingIng {
     this.pendingIng = this.pendingIng.filter((pendingIng) =>
       currentIds.has(pendingIng.id),
     );
+
+    this.pendingIng.forEach((ingredient) =>
+      this.updatePendingIngPrices(ingredient),
+    );
+
     pendingIngObservers.notify(this.getPendingIngsData());
+  }
+
+  updatePendingIngPrices(pendingIng) {
+    const ingredient = ingredientsManager.getIngredient(pendingIng.id);
+    const { unitPrice, totalIngCost } = calculateIngPrices({
+      ...ingredient,
+      ...pendingIng,
+    });
+
+    pendingIng.pricePerUnit = unitPrice;
+    pendingIng.ingPriceUsed = Number(totalIngCost.toFixed(2));
   }
 }
 

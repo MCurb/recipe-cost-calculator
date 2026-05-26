@@ -58,11 +58,15 @@
 
           <div class="form-group">
             <label for="ing-unit">Unit: </label>
-            <select id="ing-unit" class="ing-unit">
+            <select id="ing-unit" class="ing-unit" required>
+              <option value="">Select a Unit</option>
               <option value="grams">g</option>
               <option value="kilograms" selected>kg</option>
               <option value="liters">lt</option>
               <option value="milliliters">ml</option>
+              <option value="milligrams">mg</option>
+              <option value="ounces">oz</option>
+              <option value="pounds">lb</option>
             </select>
           </div>
         </div>
@@ -158,10 +162,13 @@
                 <option value="kilograms">kg</option>
                 <option value="liters">lt</option>
                 <option value="milliliters">ml</option>
+                <option value="milligrams">mg</option>
+                <option value="ounces">oz</option>
+                <option value="pounds">lb</option>
               </select>
             </div>
           </div>
-          <button type="button" class="add-ing-recipe-btn">
+          <button class="add-ing-recipe-btn">
             Add Ingredient
           </button>
         </fieldset>

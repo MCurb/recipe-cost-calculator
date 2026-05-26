@@ -32,6 +32,9 @@ export function createIngMinCard(ingObj) {
     kilograms: 'kg',
     liters: 'lt',
     milliliters: 'ml',
+    milligrams: 'mg',
+    ounces: 'oz',
+    pounds: 'lb',
   };
 
   const ingMinCard = ingMinCardTemplate.content.cloneNode(true);
