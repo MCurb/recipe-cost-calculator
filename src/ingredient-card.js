@@ -42,6 +42,9 @@ export function createIngMinCard(ingObj) {
   ingMinCard.querySelector('.min-card-price').textContent =
     `${ingPriceUsed} MXN`;
 
+  ingMinCard.querySelector('.min-card-edit-btn').dataset.ingId = id;
+  ingMinCard.querySelector('.min-card-del-btn').dataset.ingId = id;
+
   return ingMinCard;
 }
 

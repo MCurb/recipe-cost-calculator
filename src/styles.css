@@ -141,7 +141,8 @@ li.ing-min-card {
   list-style-type: none;
 }
 
-.ing-min-details {
+.ing-min-details,
+.ing-min-actions {
   display: flex;
   gap: 12px;
 }
@@ -180,6 +181,10 @@ ul.ing-card-list.visible {
   display: flex;
   flex-direction: column;
   gap: 4px;
+}
+
+ul.ing-card-list .ing-min-actions {
+  display: none;
 }
 
 .recipe-card .buttons {

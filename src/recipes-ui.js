@@ -44,21 +44,24 @@ addIngToRecipeBtn.addEventListener('click', () => {
   ingUsed.pricePerUnit = unitPrice;
   ingUsed.ingPriceUsed = Number(totalIngCost.toFixed(2));
 
+  // Clean ingredient form
+  selectIng.value = '';
+  ingQuantityUsed.value = '';
+  ingUnitUsed.value = '';
+
+  //Update or add new
+  const pendingIngExists = pendingIngManager.getIngredient(ingUsed.id);
+  if (pendingIngExists) {
+    pendingIngManager.updateIngredient(ingUsed.id, ingUsed);
+    return;
+  }
   pendingIngManager.addIngredient(ingUsed);
 });
 
 addRecipeBtn.addEventListener('click', (e) => {
   const { dataset } = e.target;
-  // const recipeExists = recipesManager.getRecipe(dataset.recipeId);
-  // if (recipeExists) {
-  //   const updatedRecipe = {
-  //     name: recipeName.value,
-  //     ingredientsUsed: [],
-  //     recipeCost: 0,
-  //   };
-  // }
 
-  const newRecipe = {
+  const recipe = {
     name: recipeName.value,
     ingredientsUsed: [],
     recipeCost: 0,
@@ -68,11 +71,22 @@ addRecipeBtn.addEventListener('click', (e) => {
   const pendingIngredients = pendingIngManager.getPendingIngsData();
 
   pendingIngredients.forEach((ingredient) => {
-    newRecipe.ingredientsUsed.push(ingredient);
-    newRecipe.recipeCost += ingredient.ingPriceUsed;
+    recipe.ingredientsUsed.push(ingredient);
+    recipe.recipeCost += ingredient.ingPriceUsed;
   });
+  pendingIngManager.clearPendingList();
 
-  recipesManager.addRecipe(newRecipe);
+  //Clean Recipe Form
+  recipeName.value = '';
+
+  //Update or add new
+  const recipeExists = recipesManager.getRecipe(dataset.recipeId);
+  if (recipeExists) {
+    recipesManager.recipeUpdater(dataset.recipeId, recipe);
+    return;
+  }
+
+  recipesManager.addRecipe(recipe);
 });
 
 // === Recipe Cards Listeners ===
@@ -99,9 +113,37 @@ function populateRecipeForm(recipeObj) {
   // name input =  recipe name
   recipeName.value = name;
   addRecipeBtn.dataset.recipeId = id;
-  // call update ing form list
-  updateIngFormList(ingredientsUsed);
-  // I need to figure out a way to edit each ingredient used in the recipe
+  // update pending ing form list
+  pendingIngManager.clearPendingList();
+  ingredientsUsed.forEach((ingredient) =>
+    pendingIngManager.addIngredient(ingredient),
+  );
+}
+
+// === Pending Ing Min Cards Listeners ===
+
+ulIngForm.addEventListener('click', (e) => {
+  const { dataset, classList } = e.target;
+
+  if (classList.contains('min-card-del-btn')) {
+    pendingIngManager.removeIngredient(dataset.ingId);
+  }
+
+  if (classList.contains('min-card-edit-btn')) {
+    // get the pending ingredient data
+    const pendingIng = pendingIngManager.getIngredient(dataset.ingId);
+    // populate the ing form
+    populateRecipeIngForm(pendingIng);
+  }
+});
+
+function populateRecipeIngForm(ingUsed) {
+  const { id, quantityUsed, unitUsed } = ingUsed;
+  const { name } = ingredientsManager.getIngredient(id);
+
+  selectIng.value = name;
+  ingQuantityUsed.value = quantityUsed;
+  ingUnitUsed.value = unitUsed;
 }
 
 // Updater Function

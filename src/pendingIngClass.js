@@ -18,7 +18,7 @@ class PendingIng {
     pendingIngObservers.notify(this.getPendingIngsData());
   }
 
-  clearPendingIng() {
+  clearPendingList() {
     this.pendingIng = [];
     pendingIngObservers.notify(this.getPendingIngsData());
   }
