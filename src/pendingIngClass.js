@@ -1,4 +1,4 @@
-import { pendingIngObservers } from './observer';
+import { ingObservers, pendingIngObservers } from './observer';
 
 class PendingIng {
   constructor() {
@@ -35,6 +35,21 @@ class PendingIng {
     Object.assign(currentIng, updatedIng);
     pendingIngObservers.notify(this.getPendingIngsData());
   }
+
+  filterDeletedIng(ingredients) {
+    const currentIds = new Set();
+    ingredients.forEach((ingredient) => {
+      currentIds.add(ingredient.id);
+    });
+
+    this.pendingIng = this.pendingIng.filter((pendingIng) =>
+      currentIds.has(pendingIng.id),
+    );
+    pendingIngObservers.notify(this.getPendingIngsData());
+  }
 }
 
 export const pendingIngManager = new PendingIng();
+ingObservers.subscribe(
+  pendingIngManager.filterDeletedIng.bind(pendingIngManager),
+);
