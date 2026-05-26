@@ -1,4 +1,3 @@
-import convert from 'convert';
 import { ingObservers, pendingIngObservers } from './observer';
 import { ingredientsManager } from './storage/ingredients';
 import { recipesManager } from './storage/recipes';
@@ -83,6 +82,7 @@ addRecipeBtn.addEventListener('click', (e) => {
   const recipeExists = recipesManager.getRecipe(dataset.recipeId);
   if (recipeExists) {
     recipesManager.recipeUpdater(dataset.recipeId, recipe);
+    dataset.recipeId = '';
     return;
   }
 
