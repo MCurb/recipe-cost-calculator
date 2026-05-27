@@ -53,11 +53,6 @@ class Recipes {
     recipeObservers.notify(this.getRecipesData());
   }
 
-  recipeIngUpdater(recipeId) {
-    //Create a method that takes the recipe
-    //
-  }
-
   recipesIngUpdater(ingredients) {
     if (this.recipes.length < 1) return;
 

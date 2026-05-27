@@ -4,6 +4,7 @@ import { recipesManager } from './storage/recipes';
 import { createIngMinCard } from './ingredient-cards';
 import { calculateIngPrices } from './calculations';
 import { pendingIngManager } from './pendingIngClass';
+import { cleanFormInputs } from './ingredients-ui';
 
 // ========================
 // DOM REFERENCES (static)
@@ -51,9 +52,7 @@ addIngToRecipeBtn.addEventListener('click', (e) => {
   ingUsed.pricePerUnit = unitPrice;
   ingUsed.ingPriceUsed = Number(totalIngCost.toFixed(2));
 
-  // Clean ingredient form
-  selectIng.value = '';
-  ingQuantityUsed.value = '';
+  cleanFormInputs([selectIng, ingQuantityUsed]);
 
   //Update or add new
   const pendingIngExists = pendingIngManager.getPendingIng(ingUsed.id);
@@ -82,8 +81,7 @@ addRecipeBtn.addEventListener('click', (e) => {
   });
   pendingIngManager.clearPendingList();
 
-  //Clean Recipe Form
-  recipeName.value = '';
+  cleanFormInputs([recipeName]);
 
   //Update or add new
   const recipeExists = recipesManager.getRecipe(dataset.recipeId);

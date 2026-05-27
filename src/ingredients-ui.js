@@ -24,6 +24,8 @@ ingFormActions.addEventListener('click', (e) => {
   if (classList.contains('add-ing-btn')) {
     const newIngredient = getIngInputValues();
 
+    cleanFormInputs([ingName, ingPrice, ingQuantity]);
+
     ingredientsManager.addIngredient(newIngredient);
   }
   if (classList.contains('update-ing-btn')) {
@@ -36,6 +38,8 @@ ingFormActions.addEventListener('click', (e) => {
       );
       return;
     }
+
+    cleanFormInputs([ingName, ingPrice, ingQuantity]);
 
     ingredientsManager.updateIngredient(ingId, updatedIng);
     toggleFormActions(ingFormActions, e.target, addIngBtn);
@@ -81,6 +85,10 @@ function populateIngForm(ingredientObj) {
   ingFormActions
     .querySelector('.update-ing-btn')
     .setAttribute('data-ing-id', id);
+}
+
+export function cleanFormInputs(formInputs) {
+  formInputs.forEach((input) => (input.value = ''));
 }
 
 function toggleFormActions(parent, childOne, childTwo) {
