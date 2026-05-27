@@ -22,6 +22,11 @@ class Ingredients {
     return this.ingredients.find((ingredient) => ingredient.id === id);
   }
 
+  addLocalStorageIng(savedIng) {
+    this.ingredients.push(savedIng);
+    ingObservers.notify(this.getIngredientsData());
+  }
+
   addIngredient({ name, stockPrice, quantity, unit, unitType }) {
     const newIng = {
       id: crypto.randomUUID(),
@@ -48,6 +53,10 @@ class Ingredients {
     Object.assign(currentIng, updatedIng);
 
     ingObservers.notify(this.getIngredientsData());
+  }
+
+  clearIngredientsData() {
+    this.ingredients = [];
   }
 }
 

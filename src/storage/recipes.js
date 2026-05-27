@@ -30,6 +30,11 @@ class Recipes {
     return this.recipes.find((recipe) => recipe.id === id);
   }
 
+  addLocalStorageRecipe(savedRecipe) {
+    this.recipes.push(savedRecipe);
+    recipeObservers.notify(this.getRecipesData());
+  }
+
   addRecipe(obj) {
     const recipe = { ...obj, id: crypto.randomUUID() };
     this.recipes.push(recipe);
@@ -95,6 +100,10 @@ class Recipes {
     recipeIngredient.pricePerUnit = unitPrice;
     recipeIngredient.ingPriceUsed = Number(totalIngCost.toFixed(2));
     recipeObservers.notify(this.getRecipesData());
+  }
+
+  clearRecipesData() {
+    this.recipes = [];
   }
 }
 
