@@ -1,4 +1,4 @@
-import { ingredientsManager } from './storage/ingredients';
+import { ingredientsManager, unitType } from './storage/ingredients';
 
 // ========================
 // DOM REFERENCES (static)
@@ -27,9 +27,16 @@ ingFormActions.addEventListener('click', (e) => {
     ingredientsManager.addIngredient(newIngredient);
   }
   if (classList.contains('update-ing-btn')) {
-    const updatedIng = getIngInputValues();
-
     const ingId = dataset.ingId;
+    const updatedIng = getIngInputValues();
+    const currentIng = ingredientsManager.getIngredient(ingId);
+    if (updatedIng.unitType !== currentIng.unitType) {
+      alert(
+        `You cannot change the ingredient unit from ${currentIng.unitType} to ${updatedIng.unitType}. Please select a ${currentIng.unitType} unit.`,
+      );
+      return;
+    }
+
     ingredientsManager.updateIngredient(ingId, updatedIng);
     toggleFormActions(ingFormActions, e.target, addIngBtn);
   }
@@ -89,6 +96,7 @@ function getIngInputValues() {
     stockPrice: Number(ingPrice.value),
     quantity: Number(ingQuantity.value),
     unit: ingUnit.value,
+    unitType: unitType[ingUnit.value],
   };
 
   return ingObject;

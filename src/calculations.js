@@ -11,6 +11,7 @@ export function calculateIngPrices(recipeIngInfo) {
 
 function calculateUnitCost(price, quantity, unit, targetUnit) {
   let unitPrice;
+
   if (unit === 'pieces') {
     unitPrice = price / quantity;
     return unitPrice;

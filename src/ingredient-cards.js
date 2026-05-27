@@ -36,6 +36,9 @@ export function createIngMinCard(ingObj) {
     ounces: 'oz',
     pounds: 'lb',
     pieces: 'pc',
+    tablespoons: 'tbsp',
+    teaspoons: 'tsp',
+    cups: 'cup',
   };
 
   const ingMinCard = ingMinCardTemplate.content.cloneNode(true);

@@ -9,6 +9,7 @@ class Ingredients {
         stockPrice: 24,
         quantity: 1000,
         unit: 'g',
+        unitType: 'mass',
       },
     ];
   }
@@ -21,13 +22,14 @@ class Ingredients {
     return this.ingredients.find((ingredient) => ingredient.id === id);
   }
 
-  addIngredient({ name, stockPrice, quantity, unit }) {
+  addIngredient({ name, stockPrice, quantity, unit, unitType }) {
     const newIng = {
       id: crypto.randomUUID(),
       name: name,
       stockPrice: stockPrice,
       quantity: quantity,
       unit: unit,
+      unitType: unitType,
     };
 
     this.ingredients.push(newIng);
@@ -50,3 +52,16 @@ class Ingredients {
 }
 
 export const ingredientsManager = new Ingredients();
+
+export const unitType = {
+  pieces: 'unit',
+  grams: 'mass',
+  kilograms: 'mass',
+  ounces: 'mass',
+  pounds: 'mass',
+  liters: 'volume',
+  milliliters: 'volume',
+  tablespoons: 'volume',
+  teaspoons: 'volume',
+  cups: 'volume',
+};

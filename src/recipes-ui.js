@@ -1,5 +1,5 @@
 import { ingObservers, pendingIngObservers } from './observer';
-import { ingredientsManager } from './storage/ingredients';
+import { ingredientsManager, unitType } from './storage/ingredients';
 import { recipesManager } from './storage/recipes';
 import { createIngMinCard } from './ingredient-cards';
 import { calculateIngPrices } from './calculations';
@@ -35,6 +35,13 @@ addIngToRecipeBtn.addEventListener('click', (e) => {
     pricePerUnit: null,
     ingPriceUsed: null,
   };
+
+  if (unitType[ingredient.unit] !== unitType[ingUsed.unitUsed]) {
+    alert(
+      `You cannot convert from ${ingredient.unit} to ${ingUsed.unitUsed}. Please select a ${unitType[ingredient.unit]} unit`,
+    );
+    return;
+  }
 
   const { unitPrice, totalIngCost } = calculateIngPrices({
     ...ingredient,
