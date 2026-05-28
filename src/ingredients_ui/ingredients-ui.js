@@ -40,7 +40,7 @@ function handleIngFormActions(e) {
   }
 
   if (classList.contains('update-ing-btn')) {
-    const ingId = dataset.id;
+    const ingId = dataset.ingId;
     const updatedIng = getIngInputValues();
     const currentIng = ingredientsManager.getIngredient(ingId);
 
@@ -100,22 +100,23 @@ function populateIngForm(ingredientObj) {
     updateIngBtn = createFormBtn({
       className: 'update-ing-btn',
       text: 'Editar Ingrediente',
+      datasetName: 'ing-id',
       id: id,
     });
     toggleFormActions(ingFormActions, updateIngBtn, addIngBtn);
   }
 
   // Sync action btn with the new ing id
-  updateIngBtn.setAttribute('data-id', id);
+  updateIngBtn.setAttribute('data-ing-id', id);
 }
 
 // === Universal Helpers === (I can send them to a utils module)
-export function createFormBtn({ className, text, id }) {
+export function createFormBtn({ className, text, datasetName, id }) {
   const formBtn = document.createElement('button');
   formBtn.classList.add(className);
   formBtn.textContent = text;
   formBtn.type = 'submit';
-  formBtn.setAttribute('data-id', id);
+  formBtn.setAttribute(`data-${datasetName}`, id);
   return formBtn;
 }
 
