@@ -3,6 +3,7 @@ import {
   spanishUnitType,
   unitType,
 } from '../internal_state/ingredients';
+import { isFormUpdating } from '../utils/observer';
 
 // === Ingredient Section References ===
 
@@ -29,6 +30,7 @@ ingCardsContainer.addEventListener('click', handleIngCardActions);
 // === Ingredient Event Handlers ===
 function handleIngFormActions(e) {
   const { classList, dataset } = e.target;
+
   if (classList.contains('add-ing-btn')) {
     const newIngredient = getIngInputValues();
 
@@ -36,10 +38,12 @@ function handleIngFormActions(e) {
 
     ingredientsManager.addIngredient(newIngredient);
   }
+
   if (classList.contains('update-ing-btn')) {
-    const ingId = dataset.ingId;
+    const ingId = dataset.id;
     const updatedIng = getIngInputValues();
     const currentIng = ingredientsManager.getIngredient(ingId);
+
     if (updatedIng.unitType !== currentIng.unitType) {
       alert(
         `No es posible cambiar la unidad del ingrediente de ${spanishUnitType[currentIng.unitType]} a ${spanishUnitType[updatedIng.unitType]}. Por favor, seleccione una unidad de ${spanishUnitType[currentIng.unitType]}.`,
@@ -56,53 +60,19 @@ function handleIngFormActions(e) {
 
 function handleIngCardActions(e) {
   const { classList, dataset } = e.target;
-  const ingId = dataset.ingId;
+  const id = dataset.ingId;
 
   if (classList.contains('del-ing-btn')) {
-    ingredientsManager.removeIngredient(ingId);
+    ingredientsManager.removeIngredient(id);
   }
+
   if (classList.contains('edit-ing-btn')) {
-    const ingObj = ingredientsManager.getIngredient(ingId);
-    populateIngForm(ingObj);
+    const ingredientData = ingredientsManager.getIngredient(id);
+    populateIngForm(ingredientData);
   }
 }
 
-// Helper Functions
-function populateIngForm(ingredientObj) {
-  const { id, name, stockPrice, quantity, unit } = ingredientObj;
-
-  ingName.value = name;
-  ingPrice.value = stockPrice;
-  ingQuantity.value = quantity;
-  ingUnit.value = unit;
-
-  // Toggle Form actions
-  if (!ingFormActions.querySelector('.update-ing-btn')) {
-    const updateIngBtn = document.createElement('button');
-    updateIngBtn.classList.add('update-ing-btn');
-    updateIngBtn.textContent = 'Editar Ingrediente';
-    updateIngBtn.type = 'submit';
-    updateIngBtn.setAttribute('data-ing-id', id);
-    toggleFormActions(ingFormActions, updateIngBtn, addIngBtn);
-  }
-
-  // Sync btn with the new ing id
-  ingFormActions
-    .querySelector('.update-ing-btn')
-    .setAttribute('data-ing-id', id);
-}
-
-export function cleanFormInputs(formInputs) {
-  formInputs.forEach((input) => (input.value = ''));
-}
-
-function toggleFormActions(parent, childOne, childTwo) {
-  if (childOne.parentElement === parent) {
-    return parent.replaceChild(childTwo, childOne);
-  }
-  parent.replaceChild(childOne, childTwo);
-}
-
+// === Module Helpers ===
 function getIngInputValues() {
   const ingObject = {
     name: ingName.value,
@@ -113,4 +83,49 @@ function getIngInputValues() {
   };
 
   return ingObject;
+}
+
+function populateIngForm(ingredientObj) {
+  const { id, name, stockPrice, quantity, unit } = ingredientObj;
+
+  ingName.value = name;
+  ingPrice.value = stockPrice;
+  ingQuantity.value = quantity;
+  ingUnit.value = unit;
+
+  let updateIngBtn = ingFormActions.querySelector('.update-ing-btn');
+
+  // Add Update Ingredient Btn
+  if (!updateIngBtn) {
+    updateIngBtn = createFormBtn({
+      className: 'update-ing-btn',
+      text: 'Editar Ingrediente',
+      id: id,
+    });
+    toggleFormActions(ingFormActions, updateIngBtn, addIngBtn);
+  }
+
+  // Sync action btn with the new ing id
+  updateIngBtn.setAttribute('data-id', id);
+}
+
+// === Universal Helpers === (I can send them to a utils module)
+export function createFormBtn({ className, text, id }) {
+  const formBtn = document.createElement('button');
+  formBtn.classList.add(className);
+  formBtn.textContent = text;
+  formBtn.type = 'submit';
+  formBtn.setAttribute('data-id', id);
+  return formBtn;
+}
+
+export function cleanFormInputs(formInputs) {
+  formInputs.forEach((input) => (input.value = ''));
+}
+
+export function toggleFormActions(parent, childOne, childTwo) {
+  if (childOne.parentElement === parent) {
+    return parent.replaceChild(childTwo, childOne);
+  }
+  parent.replaceChild(childOne, childTwo);
 }
