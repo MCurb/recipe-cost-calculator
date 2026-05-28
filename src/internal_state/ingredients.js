@@ -75,6 +75,20 @@ export const unitType = {
   cups: 'volume',
 };
 
+export const unitAbb = {
+  grams: 'g',
+  kilograms: 'kg',
+  liters: 'lt',
+  milliliters: 'ml',
+  milligrams: 'mg',
+  ounces: 'oz',
+  pounds: 'lb',
+  pieces: 'pc',
+  tablespoons: 'tbsp',
+  teaspoons: 'tsp',
+  cups: 'cup',
+};
+
 export const spanishUnits = {
   grams: 'gramos',
   kilograms: 'kilogramos',

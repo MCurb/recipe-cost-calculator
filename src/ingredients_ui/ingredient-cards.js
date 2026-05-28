@@ -2,11 +2,35 @@ import { ingObservers } from '../utils/observer';
 import {
   ingredientsManager,
   spanishUnits,
+  unitAbb,
 } from '../internal_state/ingredients';
 
+// --- Ingredient Cards Container ---
+const ingCardsCont = document.querySelector('.ing-cards-container');
+
+// --- Ingredient Card Templates ---
+const ingMinCardTemplate = document.querySelector('.ing-min-card-template');
 const ingCardTemplate = document.querySelector('.ingredient-card-template');
 
-export function createIngCardUI(ingredientObj) {
+export function createIngMinCard(ingObj) {
+  const { id, quantityUsed, unitUsed, ingPriceUsed } = ingObj;
+  const { name } = ingredientsManager.getIngredient(id);
+
+  const ingMinCard = ingMinCardTemplate.content.cloneNode(true);
+
+  ingMinCard.querySelector('.min-card-name').textContent = name;
+  ingMinCard.querySelector('.min-card-unit').textContent =
+    `${quantityUsed}${unitAbb[unitUsed]}`;
+  ingMinCard.querySelector('.min-card-price').textContent =
+    `${ingPriceUsed} MXN`;
+
+  ingMinCard.querySelector('.min-card-edit-btn').dataset.ingId = id;
+  ingMinCard.querySelector('.min-card-del-btn').dataset.ingId = id;
+
+  return ingMinCard;
+}
+
+function createIngCardUI(ingredientObj) {
   const { id, name, stockPrice, quantity, unit } = ingredientObj;
 
   const ingCard = ingCardTemplate.content.cloneNode(true);
@@ -24,41 +48,6 @@ export function createIngCardUI(ingredientObj) {
   return ingCard;
 }
 
-const ingMinCardTemplate = document.querySelector('.ing-min-card-template');
-// Helper function
-export function createIngMinCard(ingObj) {
-  const { id, quantityUsed, unitUsed, ingPriceUsed } = ingObj;
-  const { name } = ingredientsManager.getIngredient(id);
-
-  const unitAbb = {
-    grams: 'g',
-    kilograms: 'kg',
-    liters: 'lt',
-    milliliters: 'ml',
-    milligrams: 'mg',
-    ounces: 'oz',
-    pounds: 'lb',
-    pieces: 'pc',
-    tablespoons: 'tbsp',
-    teaspoons: 'tsp',
-    cups: 'cup',
-  };
-
-  const ingMinCard = ingMinCardTemplate.content.cloneNode(true);
-
-  ingMinCard.querySelector('.min-card-name').textContent = name;
-  ingMinCard.querySelector('.min-card-unit').textContent =
-    `${quantityUsed}${unitAbb[unitUsed]}`;
-  ingMinCard.querySelector('.min-card-price').textContent =
-    `${ingPriceUsed} MXN`;
-
-  ingMinCard.querySelector('.min-card-edit-btn').dataset.ingId = id;
-  ingMinCard.querySelector('.min-card-del-btn').dataset.ingId = id;
-
-  return ingMinCard;
-}
-
-const ingCardsCont = document.querySelector('.ing-cards-container');
 function updateIngCardsContainer(ingredients) {
   ingCardsCont.innerHTML = '';
   ingredients.forEach((ingredient) => {
