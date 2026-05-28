@@ -1,5 +1,5 @@
 import { ingObservers } from './observer';
-import { ingredientsManager } from './storage/ingredients';
+import { ingredientsManager, spanishUnits } from './storage/ingredients';
 
 const ingCardTemplate = document.querySelector('.ingredient-card-template');
 
@@ -11,9 +11,9 @@ export function createIngCardUI(ingredientObj) {
 
   ingCard.querySelector('.card-ing-name').textContent = name;
   ingCard.querySelector('.card-ing-unit').textContent =
-    `Unit: ${quantity} ${quantity > 1 ? unit : unit.slice(0, -1)}`;
+    `${quantity} ${quantity > 1 ? spanishUnits[unit] : spanishUnits[unit].slice(0, -1)}`;
   ingCard.querySelector('.card-ing-price').textContent =
-    `Cost: ${stockPrice} MXN`;
+    `Costo: ${stockPrice} MXN`;
   ingCard.querySelectorAll('button').forEach((button) => {
     button.dataset.ingId = id;
   });

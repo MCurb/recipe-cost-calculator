@@ -8,15 +8,14 @@
   </head>
   <body>
     <section>
-      <h2>Insert Ingredients</h2>
       <div class="ing-cards-container">
         <template class="ingredient-card-template">
           <div class="ingredient-card">
             <div class="ing-name-actions-container">
               <h3 class="card-ing-name">Name</h3>
               <div class="buttons">
-                <button class="edit-ing-btn">Edit</button>
-                <button class="del-ing-btn">Delete</button>
+                <button class="edit-ing-btn">Editar</button>
+                <button class="del-ing-btn">Borrar</button>
               </div>
             </div>
             <div class="ing-info-container">
@@ -39,15 +38,16 @@
           </div>
         </div>
       </div>
+      <h2>Añadir Ingrediente</h2>
       <form class="ingredient-form">
         <div class="form-group">
-          <label for="ing-name">Ingredient Name:</label>
+          <label for="ing-name">Nombre del Ingrediente</label>
           <input type="text" id="ing-name" class="ing-name" />
         </div>
 
         <div class="used-quantity-wrapper">
           <div class="form-group">
-            <label for="ing-quantity">Quantity:</label>
+            <label for="ing-quantity">Cantidad</label>
             <input
               type="number"
               id="ing-quantity"
@@ -57,29 +57,33 @@
           </div>
 
           <div class="form-group">
-            <label for="ing-unit">Unit: </label>
+            <label for="ing-unit">Unidad</label>
             <select id="ing-unit" class="ing-unit" required>
-              <option value="">Select a Unit</option>
-              <option value="grams">g</option>
-              <option value="kilograms" selected>kg</option>
-              <option value="liters">lt</option>
-              <option value="milliliters">ml</option>
-              <option value="milligrams">mg</option>
-              <option value="ounces">oz</option>
-              <option value="pounds">lb</option>
-              <option value="pieces">pc</option>
-              <option value="tablespoons">tbsp</option>
-              <option value="teaspoons">tsp</option>
-              <option value="cups">cup</option>
+              <option value="">Selecciona una unidad</option>
+              <option value="pieces">Unidad/Pieza</option>
+              <optgroup label="Unidades de Masa">
+                <option value="kilograms" selected>Kilogramo (kg)</option>
+                <option value="grams">Gramo (g)</option>
+                <option value="milligrams">Miligramo (mg)</option>
+                <option value="pounds">Libra (lb)</option>
+              </optgroup>
+              <optgroup label="Unidades de Volumen">
+                <option value="liters">Litro (l)</option>
+                <option value="milliliters">Mililitro (ml)</option>
+                <option value="tablespoons">Cucharada (tbsp)</option>
+                <option value="teaspoons">Cucharadita (tsp)</option>
+                <option value="cups">Taza (cup)</option>
+                <option value="ounces">Onza (oz)</option>
+              </optgroup>
             </select>
           </div>
         </div>
         <div class="form-group">
-          <label for="ing-price"> Price: </label>
+          <label for="ing-price">Precio</label>
           <input type="number" id="ing-price" class="ing-price" />
         </div>
         <div class="ing-form-actions">
-          <button type="submit" class="add-ing-btn">Add Ingredient</button>
+          <button type="submit" class="add-ing-btn">Añadir Ingrediente</button>
         </div>
       </form>
     </section>
@@ -93,13 +97,13 @@
               <p class="card-recipe-price">50 MXN</p>
             </div>
             <details class="ing-list-container">
-              <summary><span>Ingredients</span></summary>
+              <summary><span>Ingredientes</span></summary>
               <ul class="ing-card-list"></ul>
             </details>
             <div class="buttons">
               <button class="pdf-recipe-btn">PDF</button>
-              <button class="edit-recipe-btn">Edit</button>
-              <button class="del-recipe-btn">Delete</button>
+              <button class="edit-recipe-btn">Editar</button>
+              <button class="del-recipe-btn">Borrar</button>
             </div>
           </div>
         </template>
@@ -109,21 +113,21 @@
             <p class="card-recipe-price">50 MXN</p>
           </div>
           <details class="ing-list-container">
-            <summary><span>Ingredients</span></summary>
+            <summary><span>Ingredientes</span></summary>
             <ul class="ing-card-list"></ul>
           </details>
           <div class="buttons">
             <button class="pdf-recipe-btn">PDF</button>
-            <button class="edit-recipe-btn">Edit</button>
-            <button class="del-recipe-btn">Delete</button>
+            <button class="edit-recipe-btn">Editar</button>
+            <button class="del-recipe-btn">Borrar</button>
           </div>
         </div>
       </div>
 
-      <h2>Insert Recipe</h2>
+      <h2>Añadir Receta</h2>
       <form class="recipe-form">
         <div class="form-group">
-          <label for="recipe-name">Recipe Name:</label>
+          <label for="recipe-name">Nombre de la Receta</label>
           <input type="text" id="recipe-name" class="recipe-name" />
         </div>
 
@@ -136,22 +140,22 @@
                 <p class="min-card-price">50 MXN</p>
               </div>
               <div class="ing-min-actions">
-                <button type="button" class="min-card-edit-btn">Edit</button>
-                <button type="button" class="min-card-del-btn">Delete</button>
+                <button type="button" class="min-card-edit-btn">Editar</button>
+                <button type="button" class="min-card-del-btn">Borrar</button>
               </div>
             </li>
           </template>
         </ul>
 
         <fieldset class="ing-used-section">
-          <legend>Add ingredient to recipe:</legend>
+          <legend>Añadir ingrediente a la receta</legend>
           <div class="form-group">
-            <label for="select-ingredient">Select an ingredient:</label>
+            <label for="select-ingredient">Seleccionar Ingrediente</label>
             <select id="select-ingredient" class="select-ingredient"></select>
           </div>
           <div class="used-quantity-wrapper">
             <div class="form-group">
-              <label for="recipe-ing-quantity"> Quantity Used:</label>
+              <label for="recipe-ing-quantity">Cantidad Usada</label>
               <input
                 type="number"
                 id="recipe-ing-quantity"
@@ -160,26 +164,31 @@
             </div>
 
             <div class="form-group">
-              <label for="ing-unit-used">Unit:</label>
+              <label for="ing-unit-used">Unidad</label>
               <select id="ing-unit-used" class="ing-unit-used">
-                <option value="grams" selected>g</option>
-                <option value="kilograms">kg</option>
-                <option value="liters">lt</option>
-                <option value="milliliters">ml</option>
-                <option value="milligrams">mg</option>
-                <option value="ounces">oz</option>
-                <option value="pounds">lb</option>
-                <option value="pieces">pc</option>
-                <option value="tablespoons">tbsp</option>
-                <option value="teaspoons">tsp</option>
-                <option value="cups">cup</option>
+                <option value="">Selecciona una unidad</option>
+                <option value="pieces">Unidad/Pieza</option>
+                <optgroup label="Unidades de Masa">
+                  <option value="kilograms" selected>Kilogramo (kg)</option>
+                  <option value="grams">Gramo (g)</option>
+                  <option value="milligrams">Miligramo (mg)</option>
+                  <option value="pounds">Libra (lb)</option>
+                </optgroup>
+                <optgroup label="Unidades de Volumen">
+                  <option value="liters">Litro (l)</option>
+                  <option value="milliliters">Mililitro (ml)</option>
+                  <option value="tablespoons">Cucharada (tbsp)</option>
+                  <option value="teaspoons">Cucharadita (tsp)</option>
+                  <option value="cups">Taza (cup)</option>
+                  <option value="ounces">Onza (oz)</option>
+                </optgroup>
               </select>
             </div>
           </div>
-          <button class="add-ing-recipe-btn">Add Ingredient</button>
+          <button class="add-ing-recipe-btn">Añadir Ingrediente</button>
         </fieldset>
 
-        <button type="button" class="add-recipe-btn">Add Recipe</button>
+        <button type="button" class="add-recipe-btn">Añadir Receta</button>
       </form>
     </section>
   </body>

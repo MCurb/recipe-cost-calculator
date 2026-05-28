@@ -1,4 +1,8 @@
-import { ingredientsManager, unitType } from './storage/ingredients';
+import {
+  ingredientsManager,
+  spanishUnitType,
+  unitType,
+} from './storage/ingredients';
 
 // ========================
 // DOM REFERENCES (static)
@@ -34,7 +38,7 @@ ingFormActions.addEventListener('click', (e) => {
     const currentIng = ingredientsManager.getIngredient(ingId);
     if (updatedIng.unitType !== currentIng.unitType) {
       alert(
-        `You cannot change the ingredient unit from ${currentIng.unitType} to ${updatedIng.unitType}. Please select a ${currentIng.unitType} unit.`,
+        `No es posible cambiar la unidad del ingrediente de ${spanishUnitType[currentIng.unitType]} a ${spanishUnitType[updatedIng.unitType]}. Por favor, seleccione una unidad de ${spanishUnitType[currentIng.unitType]}.`,
       );
       return;
     }
@@ -75,7 +79,7 @@ function populateIngForm(ingredientObj) {
   if (!ingFormActions.querySelector('.update-ing-btn')) {
     const updateIngBtn = document.createElement('button');
     updateIngBtn.classList.add('update-ing-btn');
-    updateIngBtn.textContent = 'Update';
+    updateIngBtn.textContent = 'Editar Ingrediente';
     updateIngBtn.type = 'submit';
     updateIngBtn.setAttribute('data-ing-id', id);
     toggleFormActions(ingFormActions, updateIngBtn, addIngBtn);

@@ -1,5 +1,5 @@
 import { ingObservers, pendingIngObservers } from './observer';
-import { ingredientsManager, unitType } from './storage/ingredients';
+import { ingredientsManager, spanishUnits, spanishUnitType, unitType } from './storage/ingredients';
 import { recipesManager } from './storage/recipes';
 import { createIngMinCard } from './ingredient-cards';
 import { calculateIngPrices } from './calculations';
@@ -39,7 +39,7 @@ addIngToRecipeBtn.addEventListener('click', (e) => {
 
   if (unitType[ingredient.unit] !== unitType[ingUsed.unitUsed]) {
     alert(
-      `You cannot convert from ${ingredient.unit} to ${ingUsed.unitUsed}. Please select a ${unitType[ingredient.unit]} unit`,
+      `No es posible convertir de ${spanishUnits[ingredient.unit]} a ${spanishUnits[ingUsed.unitUsed]}. Por favor, seleccione una unidad de ${spanishUnitType[unitType[ingredient.unit]]}.`,
     );
     return;
   }

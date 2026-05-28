@@ -8,7 +8,7 @@ class Ingredients {
         name: 'Harina',
         stockPrice: 24,
         quantity: 1000,
-        unit: 'g',
+        unit: 'grams',
         unitType: 'mass',
       },
     ];
@@ -73,4 +73,23 @@ export const unitType = {
   tablespoons: 'volume',
   teaspoons: 'volume',
   cups: 'volume',
+};
+
+export const spanishUnits = {
+  grams: 'gramos',
+  kilograms: 'kilogramos',
+  liters: 'litros',
+  milliliters: 'mililitros',
+  milligrams: 'miligramos',
+  ounces: 'onzas',
+  pounds: 'libras',
+  pieces: 'unidades',
+  tablespoons: 'cucharadas',
+  teaspoons: 'cucharaditas',
+  cups: 'tazas',
+};
+
+export const spanishUnitType = {
+  mass: 'masa',
+  volume: 'volumen',
 };
