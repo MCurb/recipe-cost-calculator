@@ -1,6 +1,6 @@
-import { ingObservers, recipeObservers } from '../observer';
-import { ingredientsManager } from './ingredients';
-import { recipesManager } from './recipes';
+import { ingObservers, recipeObservers } from '../utils/observer';
+import { ingredientsManager } from '../internal_state/ingredients';
+import { recipesManager } from '../internal_state/recipes';
 
 function saveIngredients(ingredients) {
   localStorage.setItem('ingredients', JSON.stringify(ingredients));

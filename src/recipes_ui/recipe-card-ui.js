@@ -1,5 +1,5 @@
-import { recipeObservers } from './observer';
-import { createIngMinCard } from './ingredient-cards';
+import { recipeObservers } from '../utils/observer';
+import { createIngMinCard } from '../ingredients_ui/ingredient-cards';
 
 const recipeCardsCont = document.querySelector('.recipe-cards-container');
 

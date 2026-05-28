@@ -1,15 +1,15 @@
-import { ingObservers, pendingIngObservers } from './observer';
+import { ingObservers, pendingIngObservers } from '../utils/observer';
 import {
   ingredientsManager,
   spanishUnits,
   spanishUnitType,
   unitType,
-} from './storage/ingredients';
-import { recipesManager } from './storage/recipes';
-import { createIngMinCard } from './ingredient-cards';
-import { calculateIngPrices } from './calculations';
-import { pendingIngManager } from './pendingIngClass';
-import { cleanFormInputs } from './ingredients-ui';
+} from '../internal_state/ingredients';
+import { recipesManager } from '../internal_state/recipes';
+import { createIngMinCard } from '../ingredients_ui/ingredient-cards';
+import { calculateIngPrices } from '../utils/calculations';
+import { pendingIngManager } from '../internal_state/pendingIngClass';
+import { cleanFormInputs } from '../ingredients_ui/ingredients-ui';
 
 // ========================
 // DOM REFERENCES (static)

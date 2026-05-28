@@ -1,6 +1,6 @@
-import { calculateIngPrices } from './calculations';
-import { ingObservers, pendingIngObservers } from './observer';
-import { ingredientsManager } from './storage/ingredients';
+import { calculateIngPrices } from '../utils/calculations';
+import { ingObservers, pendingIngObservers } from '../utils/observer';
+import { ingredientsManager } from '../internal_state/ingredients';
 
 class PendingIng {
   constructor() {

@@ -1,4 +1,4 @@
-import { ingObservers } from '../observer';
+import { ingObservers } from '../utils/observer';
 
 class Ingredients {
   constructor() {

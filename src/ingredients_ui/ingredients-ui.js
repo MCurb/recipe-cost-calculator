@@ -2,7 +2,7 @@ import {
   ingredientsManager,
   spanishUnitType,
   unitType,
-} from './storage/ingredients';
+} from '../internal_state/ingredients';
 
 // ========================
 // DOM REFERENCES (static)

@@ -1,6 +1,6 @@
-import { ingObservers, recipeObservers } from '../observer';
-import { ingredientsManager } from './ingredients';
-import { calculateIngPrices } from '../calculations';
+import { ingObservers, recipeObservers } from '../utils/observer';
+import { ingredientsManager } from '../internal_state/ingredients';
+import { calculateIngPrices } from '../utils/calculations';
 
 class Recipes {
   constructor() {

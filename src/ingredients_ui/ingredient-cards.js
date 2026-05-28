@@ -1,5 +1,8 @@
-import { ingObservers } from './observer';
-import { ingredientsManager, spanishUnits } from './storage/ingredients';
+import { ingObservers } from '../utils/observer';
+import {
+  ingredientsManager,
+  spanishUnits,
+} from '../internal_state/ingredients';
 
 const ingCardTemplate = document.querySelector('.ingredient-card-template');
 
