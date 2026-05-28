@@ -1,5 +1,10 @@
 import { ingObservers, pendingIngObservers } from './observer';
-import { ingredientsManager, spanishUnits, spanishUnitType, unitType } from './storage/ingredients';
+import {
+  ingredientsManager,
+  spanishUnits,
+  spanishUnitType,
+  unitType,
+} from './storage/ingredients';
 import { recipesManager } from './storage/recipes';
 import { createIngMinCard } from './ingredient-cards';
 import { calculateIngPrices } from './calculations';
