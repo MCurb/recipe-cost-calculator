@@ -4,26 +4,30 @@ import {
   unitType,
 } from '../internal_state/ingredients';
 
-// ========================
-// DOM REFERENCES (static)
-// ========================
+// === Ingredient Section References ===
 
-// === Ingredient Form Ref ===
+// --- Containers ---
+const ingCardsContainer = document.querySelector('.ing-cards-container');
 const ingForm = document.querySelector('.ingredient-form');
-const ingFormActions = document.querySelector('.ing-form-actions');
-const addIngBtn = document.querySelector('.add-ing-btn');
+
+// --- Inputs ---
 const ingName = document.querySelector('.ing-name');
 const ingPrice = document.querySelector('.ing-price');
 const ingQuantity = document.querySelector('.ing-quantity');
 const ingUnit = document.querySelector('.ing-unit');
 
-// === Ingredient Form Listeners ===
+// --- Buttons ---
+const ingFormActions = document.querySelector('.ing-form-actions');
+const addIngBtn = document.querySelector('.add-ing-btn');
 
-ingForm.addEventListener('submit', (e) => {
-  e.preventDefault();
-});
+// === Ingredient Event Listeners ===
 
-ingFormActions.addEventListener('click', (e) => {
+ingForm.addEventListener('submit', (e) => e.preventDefault());
+ingFormActions.addEventListener('click', handleIngFormActions);
+ingCardsContainer.addEventListener('click', handleIngCardActions);
+
+// === Ingredient Event Handlers ===
+function handleIngFormActions(e) {
   const { classList, dataset } = e.target;
   if (classList.contains('add-ing-btn')) {
     const newIngredient = getIngInputValues();
@@ -48,13 +52,9 @@ ingFormActions.addEventListener('click', (e) => {
     ingredientsManager.updateIngredient(ingId, updatedIng);
     toggleFormActions(ingFormActions, e.target, addIngBtn);
   }
-});
+}
 
-// === Ingredient Cards Listeners ===
-
-const ingCardsContainer = document.querySelector('.ing-cards-container');
-
-ingCardsContainer.addEventListener('click', (e) => {
+function handleIngCardActions(e) {
   const { classList, dataset } = e.target;
   const ingId = dataset.ingId;
 
@@ -65,8 +65,9 @@ ingCardsContainer.addEventListener('click', (e) => {
     const ingObj = ingredientsManager.getIngredient(ingId);
     populateIngForm(ingObj);
   }
-});
+}
 
+// Helper Functions
 function populateIngForm(ingredientObj) {
   const { id, name, stockPrice, quantity, unit } = ingredientObj;
 
