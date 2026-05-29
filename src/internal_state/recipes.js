@@ -5,20 +5,27 @@ import { calculateIngPrices } from '../utils/calculations';
 class Recipes {
   constructor() {
     this.recipes = [
-      // {
-      //   id: crypto.randomUUID(),
-      //   name: 'Pastel de Zanahoria',
-      //   ingredientsUsed: [
-      //     {
-      //       id: 'ingredientId',
-      //       quantityUsed: 1,
-      //       unitUsed: 'kilograms',
-      //       pricePerUnit: 48,
-      //       ingPriceUsed: 48,
-      //     },
-      //   ],
-      //   recipeCost: 48,
-      // },
+      {
+        id: 'Zanahoria',
+        name: 'Pastel de Zanahoria',
+        ingredientsUsed: [
+          {
+            id: 'Azúcar',
+            quantityUsed: 150,
+            unitUsed: 'grams',
+            pricePerUnit: 0.021,
+            ingPriceUsed: 3.15,
+          },
+          {
+            id: 'Huevos',
+            quantityUsed: 4,
+            unitUsed: 'pieces',
+            pricePerUnit: 2.33,
+            ingPriceUsed: 9.33,
+          },
+        ],
+        recipeCost: 12.48,
+      },
     ];
   }
 
@@ -99,6 +106,7 @@ class Recipes {
 
   clearRecipesData() {
     this.recipes = [];
+    recipeObservers.notify(this.getRecipesData());
   }
 }
 

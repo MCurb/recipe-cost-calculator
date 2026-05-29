@@ -3,7 +3,6 @@ import {
   spanishUnitType,
   unitType,
 } from '../internal_state/ingredients';
-import { isFormUpdating } from '../utils/observer';
 
 // === Ingredient Section References ===
 
@@ -46,7 +45,7 @@ function handleIngFormActions(e) {
 
     if (updatedIng.unitType !== currentIng.unitType) {
       alert(
-        `No es posible cambiar la unidad del ingrediente de ${spanishUnitType[currentIng.unitType]} a ${spanishUnitType[updatedIng.unitType]}. Por favor, seleccione una unidad de ${spanishUnitType[currentIng.unitType]}.`,
+        `La unidad seleccionada no es compatible con este ingrediente. Use una unidad compatible como: ${spanishUnitType[currentIng.unitType]}.`,
       );
       return;
     }

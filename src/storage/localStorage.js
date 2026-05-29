@@ -15,6 +15,12 @@ recipeObservers.subscribe(saveRecipes);
 export function loadData() {
   const savedIngredients = localStorage.getItem('ingredients');
   const savedRecipes = localStorage.getItem('recipes');
+  const examplesLoaded = localStorage.getItem('examplesLoaded');
+
+  if (!examplesLoaded) {
+    localStorage.setItem('examplesLoaded', true);
+    return loadExamples();
+  }
 
   if (savedIngredients) {
     const ingredients = JSON.parse(savedIngredients);
@@ -29,4 +35,9 @@ export function loadData() {
     recipesManager.clearRecipesData();
     recipes.forEach((recipe) => recipesManager.addLocalStorageRecipe(recipe));
   }
+}
+
+function loadExamples() {
+  ingObservers.notify(ingredientsManager.getIngredientsData());
+  recipeObservers.notify(recipesManager.getRecipesData());
 }

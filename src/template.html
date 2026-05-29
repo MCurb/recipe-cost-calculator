@@ -25,19 +25,6 @@
             </div>
           </div>
         </template>
-        <div class="ingredient-card">
-          <div class="ing-name-actions-container">
-            <h3>Nombre</h3>
-            <div class="buttons">
-              <button class="edit-ing-btn">Editar</button>
-              <button class="del-ing-btn">Borrar</button>
-            </div>
-          </div>
-          <div class="ing-info-container">
-            <p>1 kilogramo</p>
-            <p>Costo: 24mxn</p>
-          </div>
-        </div>
       </div>
       <h2>Añadir Ingrediente</h2>
       <form class="ingredient-form">
@@ -48,7 +35,7 @@
 
         <div class="used-quantity-wrapper">
           <div class="form-group">
-            <label for="ing-quantity">Cantidad</label>
+            <label for="ing-quantity">Cantidad Adquirida</label>
             <input
               type="number"
               id="ing-quantity"
@@ -61,7 +48,9 @@
             <label for="ing-unit">Unidad</label>
             <select id="ing-unit" class="ing-unit" required>
               <option value="">Selecciona una unidad</option>
-              <option value="pieces">Unidad/Pieza</option>
+              <optgroup label="Unidades Individuales">
+                <option value="pieces">Unidad/Pieza</option>
+              </optgroup>
               <optgroup label="Unidades de Masa">
                 <option value="kilograms" selected>Kilogramo (kg)</option>
                 <option value="grams">Gramo (g)</option>
@@ -109,21 +98,6 @@
             </div>
           </div>
         </template>
-        <div class="recipe-card">
-          <div class="recipe-card-info">
-            <p class="card-recipe-name">Pastel de Naranja</p>
-            <p class="card-recipe-price">50 MXN</p>
-          </div>
-          <details class="ing-list-container">
-            <summary><span>Ingredientes</span></summary>
-            <ul class="ing-card-list"></ul>
-          </details>
-          <div class="buttons">
-            <button class="pdf-recipe-btn">PDF</button>
-            <button class="edit-recipe-btn">Editar</button>
-            <button class="del-recipe-btn">Borrar</button>
-          </div>
-        </div>
       </div>
 
       <h2>Añadir Receta</h2>
@@ -170,7 +144,9 @@
               <label for="ing-unit-used">Unidad</label>
               <select id="ing-unit-used" class="ing-unit-used">
                 <option value="">Selecciona una unidad</option>
-                <option value="pieces">Unidad/Pieza</option>
+                <optgroup label="Unidades Individuales">
+                  <option value="pieces">Unidad/Pieza</option>
+                </optgroup>
                 <optgroup label="Unidades de Masa">
                   <option value="kilograms" selected>Kilogramo (kg)</option>
                   <option value="grams">Gramo (g)</option>

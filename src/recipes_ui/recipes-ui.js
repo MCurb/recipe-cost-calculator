@@ -44,7 +44,7 @@ addIngToRecipeBtn.addEventListener('click', (e) => {
 
   if (unitType[ingredient.unit] !== unitType[ingUsed.unitUsed]) {
     alert(
-      `No es posible convertir de ${spanishUnits[ingredient.unit]} a ${spanishUnits[ingUsed.unitUsed]}. Por favor, seleccione una unidad de ${spanishUnitType[unitType[ingredient.unit]]}.`,
+      `No es posible convertir de ${spanishUnits[ingredient.unit]} a ${spanishUnits[ingUsed.unitUsed]}. Por favor, seleccione una unidad compatible, ej: ${spanishUnitType[unitType[ingredient.unit]]}`,
     );
     return;
   }

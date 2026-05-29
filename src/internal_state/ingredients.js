@@ -4,12 +4,28 @@ class Ingredients {
   constructor() {
     this.ingredients = [
       {
-        id: crypto.randomUUID(),
+        id: 'Harina',
         name: 'Harina',
         stockPrice: 24,
-        quantity: 1000,
-        unit: 'grams',
+        quantity: 1,
+        unit: 'kilograms',
         unitType: 'mass',
+      },
+      {
+        id: 'Azúcar',
+        name: 'Azúcar',
+        stockPrice: 42,
+        quantity: 2,
+        unit: 'kilograms',
+        unitType: 'mass',
+      },
+      {
+        id: 'Huevos',
+        name: 'Huevos',
+        stockPrice: 28,
+        quantity: 12,
+        unit: 'pieces',
+        unitType: 'unit',
       },
     ];
   }
@@ -57,6 +73,7 @@ class Ingredients {
 
   clearIngredientsData() {
     this.ingredients = [];
+    ingObservers.notify(this.getIngredientsData());
   }
 }
 
@@ -83,7 +100,7 @@ export const unitAbb = {
   milligrams: 'mg',
   ounces: 'oz',
   pounds: 'lb',
-  pieces: 'pc',
+  pieces: 'pz',
   tablespoons: 'tbsp',
   teaspoons: 'tsp',
   cups: 'cup',
@@ -104,6 +121,7 @@ export const spanishUnits = {
 };
 
 export const spanishUnitType = {
-  mass: 'masa',
-  volume: 'volumen',
+  unit: 'unidad/pieza',
+  mass: 'kg, g, mg, lb, oz',
+  volume: 'l, ml, tbsp, tsp, cup',
 };
